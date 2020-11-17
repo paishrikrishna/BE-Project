@@ -1,0 +1,48 @@
+{% extends "homepage.html" %}
+{% block content %}
+	<table id="camera_feed" style="margin-top: 20px;">
+		<tr colspan="2">
+			<td>
+				<div style="text-align: center;font-size: 20px;">
+					Camera Feed
+				</div>
+			</td>
+		</tr>
+	</table>
+	{% autoescape off %}
+	<script>
+		
+		
+		cam_feed(5)
+
+		function cam_feed(total_camera){
+			var table = document.getElementById("camera_feed");
+			var c = 0;
+			var p = -1;
+			for(var i = 1 ; i<=total_camera ;i++ ){
+				if((i-1)%2==0 || i==1){
+					c++;
+					p=-1;
+					var row = table.insertRow(c);
+				}
+				p++;
+				var cell1 = row.insertCell(p);
+				cell1.id = "Feeds";
+				var video = document.createElement("iframe");
+				video.id = "feed";
+				video.src = "https://r5---sn-cvh76ney.googlevideo.com/videoplayback?expire=1605648654&ei=ruyzX5nlJcW28gOh1Z64AQ&ip=194.44.243.186&id=o-AKqPjOK-LVN64NC9v62SpRf38UNZWXcX9G5nB7ooGXck&itag=18&source=youtube&requiressl=yes&vprv=1&mime=video%2Fmp4&ns=sCps8x9Bnvd1XQ6fEEOAc84F&gir=yes&clen=17762709&ratebypass=yes&dur=197.508&lmt=1603542748596836&fvip=11&c=WEB&txp=5430432&n=_KTeEL3DeH77vYL&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgQyrBJ9ILxbBawXsiV6FQ0PqmCfKvbdUJTglXoNfdLQkCIDexJ8jDaDslAS97w5-KLX53_J1C7mCeUGBcfmliYdF3&rm=sn-05goxu-afvs7l,sn-3c2eree,sn-8vq54voxpo-cvhe7l&req_id=4590ccfa3df7a3ee&ipbypass=yes&redirect_counter=3&cms_redirect=yes&mh=2w&mip=2402:3a80:166a:96f5:f1bd:901c:dc51:28e&mm=30&mn=sn-cvh76ney&ms=nxu&mt=1605630560&mv=m&mvi=2&pl=44&lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AG3C_xAwRAIgeynDuXrONZy0RruQ8OE0fjrbeUuWK17RvPsegKAE9sICIAV2bPDQMFO1XpY5Lil71FXHcLyq1F6TWy4IRX9bf9xB&ir=1&rr=12?autoplay=1&loop=1";              
+				cell1.append(video);      
+				var div = document.createElement("div");
+				div.id = "feed_name";
+				var textnode = document.createTextNode("Feed Title");
+				div.append(textnode);                    
+				cell1.append(div);
+			}
+	
+		}	
+			
+		
+		
+		</script>
+	{% endautoescape %}
+{% endblock %}

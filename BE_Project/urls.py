@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from homepage.views import home_index_page
 from calander.views import cal_index_page
+from camera.views import cam_index_page
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home_index_page),
     path('homepage',home_index_page),
-    path('calander',cal_index_page)
+    path('calander',cal_index_page),
+    path('camera',cam_index_page),
 
 ]
