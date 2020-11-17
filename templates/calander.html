@@ -1,0 +1,44 @@
+{% extends "homepage.html" %}
+{% block content %}
+	<table id="calander" style="margin-top: 20px;">
+		<tr style="display: none;">
+			<td>adasd</td>
+		</tr>
+	</table>
+	{% autoescape off %}
+	<script>
+		
+		make_cal()
+		
+		function make_cal(){
+			var table = document.getElementById("calander");
+			var c = 0;
+			var p = -1;
+			for(var i = 1 ; i<=30 ;i++ ){
+				if((i-1)%7==0 || i==1){
+					c++;
+					p=-1;
+					var row = table.insertRow(c);
+				}
+				p++;
+				var cell1 = row.insertCell(p);
+				cell1.id = "Dates";
+				var div = document.createElement("div");
+				div.id = "Date_number";
+				var textnode = document.createTextNode(i);
+				div.append(textnode);              
+				cell1.append(div);      
+				var div = document.createElement("div");
+				div.id = "Date_day";
+				var textnode = document.createTextNode("Day");
+				div.append(textnode);                    
+				cell1.append(div);
+			}
+	
+		}	
+			
+		
+		
+		</script>
+	{% endautoescape %}
+{% endblock %}

@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from homepage.views import index_page
+from homepage.views import home_index_page
+from calander.views import cal_index_page
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',index_page)
+    path('',home_index_page),
+    path('homepage',home_index_page),
+    path('calander',cal_index_page)
+
 ]

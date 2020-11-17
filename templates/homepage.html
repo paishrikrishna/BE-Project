@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>BE</title>
 	<style type="text/css">
 		#sidebar{
-		  height: 100%; /
-		  width: 160px; 
+		  height: 100%;
+		  width: 220px;
 		  position: fixed; 
 		  z-index: 1; 
 		  top: 0; 
@@ -13,6 +13,7 @@
 		  background-color: #111; 
 		  overflow-x: hidden; 
 		  padding-top: 20px;
+		  
 		}
 		a{
 			color: white;
@@ -29,18 +30,35 @@
 			transition: 1s;
 		}
 		a#logo:hover{
-			margin-bottom: 100px;
+			margin-bottom: 15px;
 
+		}
+		#main {
+			margin-left: 220px; 
+			padding: 0px 10px;
+		}
+		#Dates{
+			padding: 40px 40px 40px 40px;
+			font-size: 20px;
+			background-color: blue;
+		}
+		#calander{
+			margin: auto;
 		}
 	</style>
 </head>
-<body>
+<body >
 	<div id="sidebar">
-		<a href="" id="logo"><img src="" alt="LOGO"></a>
-		<a href="">Calander</a>
+		<a href="./homepage" id="logo"><img src="" alt="LOGO"></a>
+		<a href="./calander">Calander</a>
 		<a href="">Sensor</a>
 		<a href="">Camera</a>
 		<a href="">IOT</a>
+	</div>
+	<div id="main">
+		{% block content %}
+			Home Page
+		{% endblock %}
 	</div>
 </body>
 </html>

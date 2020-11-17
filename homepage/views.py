@@ -2,5 +2,5 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def index_page(request):
+def home_index_page(request):
 	return render(request,"homepage.html")
