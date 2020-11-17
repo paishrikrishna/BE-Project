@@ -13,8 +13,7 @@
 	<script>
 		
 		var Months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','December'];
-		var Days = ['']
-		make_cal(2020,8)
+		make_cal(2020,12)
 
 		function make_cal(year,month){
 			var d = new Date(year, month,0);
@@ -41,7 +40,7 @@
 				cell1.append(div);      
 				var div = document.createElement("div");
 				div.id = "Date_day";
-				var da = new Date(year, month,i);
+				var da = new Date(year, month-1,i);
 				var textnode = document.createTextNode(String(da).split(" ")[0]);
 				div.append(textnode);                    
 				cell1.append(div);
