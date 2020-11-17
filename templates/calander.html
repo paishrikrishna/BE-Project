@@ -1,20 +1,31 @@
 {% extends "homepage.html" %}
 {% block content %}
 	<table id="calander" style="margin-top: 20px;">
-		<tr style="display: none;">
-			<td>adasd</td>
+		<tr colspan="7">
+			<th>
+				<div id="month" style="text-align: center;font-size: 20px;">
+					asdad
+				</div>
+			</th>
 		</tr>
 	</table>
 	{% autoescape off %}
 	<script>
 		
-		make_cal()
-		
-		function make_cal(){
+		var Months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','December'];
+		var Days = ['']
+		make_cal(2020,8)
+
+		function make_cal(year,month){
+			var d = new Date(year, month,0);
+			var mon = document.getElementById("month");
+			
+			mon.innerHTML = Months[d.getMonth()];
+
 			var table = document.getElementById("calander");
 			var c = 0;
 			var p = -1;
-			for(var i = 1 ; i<=30 ;i++ ){
+			for(var i = 1 ; i<=d.getDate() ;i++ ){
 				if((i-1)%7==0 || i==1){
 					c++;
 					p=-1;
@@ -30,7 +41,8 @@
 				cell1.append(div);      
 				var div = document.createElement("div");
 				div.id = "Date_day";
-				var textnode = document.createTextNode("Day");
+				var da = new Date(year, month,i);
+				var textnode = document.createTextNode(String(da).split(" ")[0]);
 				div.append(textnode);                    
 				cell1.append(div);
 			}
