@@ -41,7 +41,8 @@
 				p++;
 				var cell1 = row.insertCell(p);
 				cell1.id = "Dates";
-				if(i == "{{ date }}"){
+				var dt = new Date();
+				if(i == dt.getDate() && month == (dt.getMonth())+1 && year == dt.getFullYear()){
 					cell1.style="padding-top: 0px;background-color: Red;color: white;";
 				}
 				var div = document.createElement("div");
