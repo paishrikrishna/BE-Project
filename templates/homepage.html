@@ -44,7 +44,7 @@
 			background-color: blue;
 			overflow-x: hidden;
 		}
-		#calander,#camera_feed{
+		#calander,#camera_feed,#Events_log{
 			margin: auto;
 		}
 		#Feeds{
@@ -83,16 +83,34 @@
 		}
 		#Dates:hover{
 			padding-top: 0px;
-			color: white;
+			background-color: white; 
+			color: black;
 			transition: 1s;
 			cursor: pointer;
 		}
 		#Events{
+			opacity: 0;
 			display: none;
+			font-size: 17px;
 		}
 		#Dates:hover #Events{
+			opacity: 1;
 			display: block;
 			transition: 1s;
+		}
+		#Event_Date,#Event_Organizer,#Event_Agenda{
+			font-size: 40px;
+			padding: 10px 10px 10px 10px;
+			margin: 0px 20px 10px 20px;
+			text-align: center;
+			border-radius: 20px;
+			background-color: blue;
+		}
+		#Event_Date:hover,#Event_Organizer:hover,#Event_Agenda:hover{
+			background-color: green;
+			color: white;
+			transition: 1s;
+			cursor: pointer;
 		}
 		
 
