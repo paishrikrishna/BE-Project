@@ -38,7 +38,7 @@
 			padding: 0px 10px;
 		}
 		#Dates{
-			padding: 70px 70px 70px 70px;
+			padding: 40px 40px 40px 40px;
 			font-size: 20px;
 			border-radius: 10px;
 			background-color: blue;
@@ -83,10 +83,16 @@
 		}
 		#Dates:hover{
 			padding-top: 0px;
-			background-color: green;
 			color: white;
 			transition: 1s;
 			cursor: pointer;
+		}
+		#Events{
+			display: none;
+		}
+		#Dates:hover #Events{
+			display: block;
+			transition: 1s;
 		}
 		
 

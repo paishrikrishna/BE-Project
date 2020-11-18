@@ -21,9 +21,13 @@
 		var Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November','December'];
 		var Mon_num = ("{{ month }}");
 		var year_num = ("{{ year }}");
+		var organier = ("{{ organizer }}").replace("[","").replace("]","").split(",");
+		var event_dates = ("{{ event_dates }}").replace("[","").replace("]","").split(",");
+		var content = ("{{ content }}").replace("[","").replace("]","").split(",");
 		make_cal(year_num,Mon_num);
 
 		function make_cal(year,month){
+			
 			var d = new Date(year, month,0);
 			var mon = document.getElementById("month");
 			
@@ -33,6 +37,7 @@
 			var c = 0;
 			var p = -1;
 			for(var i = 1 ; i<=d.getDate() ;i++ ){
+				var dots="";
 				if((i-1)%7==0 || i==1){
 					c++;
 					p=-1;
@@ -43,7 +48,7 @@
 				cell1.id = "Dates";
 				var dt = new Date();
 				if(i == dt.getDate() && month == (dt.getMonth())+1 && year == dt.getFullYear()){
-					cell1.style="padding-top: 0px;background-color: Red;color: white;";
+					cell1.style="background-color: Red;color: white;";
 				}
 				var div = document.createElement("div");
 				div.id = "Date_number";
@@ -56,6 +61,18 @@
 				var textnode = document.createTextNode(String(da).split(" ")[0]);
 				div.append(textnode);
 				cell1.append(div); 
+				var div = document.createElement("div");
+				div.id = "Events";
+				for(var z=0;z<event_dates.length;z++){
+					var dates = event_dates[z].replace(" ","").replace("'","").replace("'","");
+					if(dates == String(year)+ "-" +String(month)+ "-" +String(i)){
+						dots += ".";
+						cell1.style="background-color:green;color:white;"
+					} 	
+				}
+				var textnode = document.createTextNode(dots);
+				div.append(textnode);              
+				cell1.append(div);
 			}
 
 	
