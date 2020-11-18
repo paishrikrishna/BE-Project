@@ -102,6 +102,7 @@
 					var dates = event_dates[z].replace(" ","").replace("'","").replace("'","").split("-");
 					if(dates[0]+ "-" +dates[1] == String(year)+ "-" +String(month)){	
 						var row = table.insertRow(z+1);
+						row.id = "Event_holder";
 						var dates = event_dates[z].replace(" ","").replace("'","").replace("'","");
 						var cell = row.insertCell(0);
 						cell.id = "Event_Date";
