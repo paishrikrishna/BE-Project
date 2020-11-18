@@ -5,7 +5,7 @@
 			<td colspan="7" style="text-align: center;">
 				<form method="POST" action="">{% csrf_token %}
 					<input type="Submit" id="back" name="action" value="Previous">
-					<div id="month">
+					<div id="month" name="m">
 						asdad
 					</div>
 					<input type="Submit" id="back" name="action" value="Next">
@@ -18,7 +18,7 @@
 	{% autoescape off %}
 	<script>
 		
-		var Months = ['January', 'February', 'March', 'April', 'May', 'June', 'Jull', 'August', 'September', 'October', 'November','December'];
+		var Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November','December'];
 		var Mon_num = ("{{ month }}");
 		var year_num = ("{{ year }}");
 		make_cal(year_num,Mon_num);
@@ -41,6 +41,9 @@
 				p++;
 				var cell1 = row.insertCell(p);
 				cell1.id = "Dates";
+				if(i == "{{ date }}"){
+					cell1.style="padding-top: 0px;background-color: Red;color: white;";
+				}
 				var div = document.createElement("div");
 				div.id = "Date_number";
 				var textnode = document.createTextNode(i);
