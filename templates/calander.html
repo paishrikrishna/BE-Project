@@ -35,10 +35,12 @@
 		var event_dates = ("{{ event_dates }}").replace("[","").replace("]","").split(",");
 		var content = ("{{ content }}").replace("[","").replace("]","").split(",");
 
-		make_cal(year_num,Mon_num);
-		event_reminder(year_num,Mon_num);
+		make_cal(year_num,Mon_num,event_dates);
+		event_reminder(year_num,Mon_num,event_dates);
+		
 
-		function make_cal(year,month){
+
+		function make_cal(year,month,event_dates){
 			
 			var d = new Date(year, month,0);
 			var mon = document.getElementById("month");
@@ -57,7 +59,7 @@
 				}
 				p++;
 				var cell1 = row.insertCell(p);
-				
+				cell1.className="Dates";
 				cell1.id = "Dates";
 				var dt = new Date();
 				if(i == dt.getDate() && month == (dt.getMonth())+1 && year == dt.getFullYear()){
@@ -80,7 +82,7 @@
 					var dates = event_dates[z].replace(" ","").replace("'","").replace("'","");
 					if(dates == String(year)+ "-" +String(month)+ "-" +String(i)){
 						dots += 1;
-						cell1.style="background-color:green;color:white;"
+						cell1.style="background-color:green;color:white;";
 					} 	
 				}
 				var txt = "";
@@ -96,13 +98,13 @@
 			}
 		}
 
-		function event_reminder(year,month){
+		function event_reminder(year,month,event_dates){
 			var count = 0;
 			var table = document.getElementById("Events_log");
 			for(var z=0;z<event_dates.length;z++){
 					var dates = event_dates[z].replace(" ","").replace("'","").replace("'","").split("-");
 					if(dates[0]+ "-" +dates[1] == String(year)+ "-" +String(month)){	
-						var row = table.insertRow(z+1);
+						var row = table.insertRow(count+1);
 						row.id = "Event_holder";
 						var dates = event_dates[z].replace(" ","").replace("'","").replace("'","");
 						var cell = row.insertCell(0);
@@ -127,6 +129,7 @@
 						cell.append(div); 
 						count += 1;
 					}
+					dates="";
 				}
 			if(count == 0){
 				table.remove()
@@ -134,11 +137,8 @@
 			}
 		}
 
-	
-			
-			
-		
 		
 		</script>
+		
 	{% endautoescape %}
 {% endblock %}
