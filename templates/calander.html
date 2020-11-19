@@ -48,9 +48,9 @@
 	        <div class="edit_popupCloseButton">&times;</div>
 	        Event Details
 	        <form id="edit_pop_content" method="POST" action="">{% csrf_token %}
-					<p>Event Date <input id = "edit_New_date" type="text" name="edit_New_date" value="" required></p>
-					<p>Event Agenda <input type="text" name="edit_Agenda" id="edit_Agenda" placeholder="Enter Agenda Here" required></p>
-					<p>Event Organizer <input type="text" name="edit_Organizer" id="edit_Organizer" placeholder="Enter Organizer's Name" required></p>
+					<p>Event Date<input id = "edit_New_date" type="text" name="edit_New_date" value="" required></p>
+					<p>Event Agenda<input type="text" name="edit_Agenda" id="edit_Agenda" placeholder="Enter Agenda Here" required></p>
+					<p>Event Organizer<input type="text" name="edit_Organizer" id="edit_Organizer" placeholder="Enter Organizer's Name" required></p>
 					<p><input type="Submit" name="action" value="Edit Event"></p>
 					<input type="text" name="month" value="{{ month }}" style="visibility: hidden;display: none;">
 					<input type="text" name="year" value="{{ year }}" style="visibility: hidden;display: none;">
@@ -176,6 +176,7 @@
 						div.append(textnode);              
 						cell.append(div); 
 						count += 1;
+						console.log()
 					}
 					dates="";
 				}
@@ -188,24 +189,16 @@
 		function edit_events(log_buts){
 			for(var z=0;z<log_buts.length;z++){
 				log_buts[z].onclick = function(){
-					console.log(this.rowIndex);
+					
 					document.getElementsByClassName("edit_popup")[0].style.display = "block";
-					if(this.rowIndex!=1){
-						document.getElementById("edit_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
-						document.getElementById("edit_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
-						document.getElementById("edit_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
-						document.getElementById("old_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
-						document.getElementById("old_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
-						document.getElementById("old_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
-					}
-					else{
-						document.getElementById("edit_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
-						document.getElementById("edit_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
-						document.getElementById("edit_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
-						document.getElementById("old_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
-						document.getElementById("old_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
-						document.getElementById("old_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
-					}
+					
+					document.getElementById("edit_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
+					document.getElementById("edit_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
+					document.getElementById("edit_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
+					document.getElementById("old_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
+					document.getElementById("old_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
+					document.getElementById("old_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
+				
 				}
 			}
 		}

@@ -47,8 +47,14 @@ def cal_index_page(request):
 				content.append(i.content)
 				date.append(i.date)
 				ID.append(i.id)
-
-			obj = events.objects.get(content=request.POST['old_Agenda'],date=request.POST['old_New_date'],organizer=request.POST['old_Organizer'])
+			if(list(request.POST['old_Agenda'])[0]==" "):
+				content = "".join(list(request.POST['old_Agenda'])[1:])
+				organizer = "".join(list(request.POST['old_Organizer'])[1:])
+			else:
+				content = request.POST['old_Agenda']
+				organizer = request.POST['old_Organizer']
+			
+			obj = events.objects.get(content=content,date=request.POST['old_New_date'],organizer=organizer)
 			obj.organizer = request.POST['edit_Organizer']
 			obj.content = request.POST['edit_Agenda']
 			obj.date = request.POST['edit_New_date']
