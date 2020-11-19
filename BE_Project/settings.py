@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'homepage',
     'calander',
     'camera',
+    'requested_events',
 ]
 
 MIDDLEWARE = [

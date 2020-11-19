@@ -223,14 +223,32 @@
 	<div id="sidebar">
 		<a href="../{{ user }}/homepage" id="logo"><img src="" alt="LOGO"></a>
 		<a href="../{{ user }}/calander">Calender</a>
-		<a href="">Sensor</a>
-		<a href="../{{ user }}/camera">Camera</a>
-		<a href="">IOT</a>
+		<span id="admin_panel">
+			<a href="">Sensor</a>
+			<a href="../{{ user }}/camera">Camera</a>
+			<a href="../{{ user }}/requested_events">Requests</a>
+		<span>
 	</div>
 	<div id="main">
 		{% block content %}
 			{{ user }}
 		{% endblock %}
 	</div>
+	{% autoescape off %}
+	<script>
+		admin_panel();
+
+		function admin_panel(){
+			var x = document.getElementById("admin_panel");
+			if("{{ user }}" == "admin"){
+				x.style.display = "block";
+			}
+			else{
+				x.style.display = "none";
+			}
+		}
+
+	</script>
+	{% endautoescape %}
 </body>
 </html>

@@ -2,6 +2,10 @@ from django.shortcuts import render
 
 from .form import events_form
 from .models import events
+
+from requested_events.form import req_events_form
+from requested_events.models import req_events
+
 # Create your views here.
 import datetime
 
@@ -85,6 +89,32 @@ def cal_index_page(request,user):
 				date.append(i.date)
 				ID.append(i.id)
 
+			return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month']),"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user})
+		elif request.POST["action"]=="Request Event":
+			
+			if(list(request.POST['req_Agenda'])[0]==" "):
+				content = "".join(list(request.POST['req_Agenda'])[1:])
+				organizer = "".join(list(request.POST['req_Organizer'])[1:])
+			else:
+				content = request.POST['req_Agenda']
+				organizer = request.POST['req_Organizer']
+			
+			try:
+				req_events_form().save()
+			except:
+				obj = req_events.objects.get(organizer='n/a')
+				obj.organizer = request.POST['req_Organizer']
+				obj.content = request.POST['req_Agenda']
+				obj.date = request.POST['req_New_date']
+				obj.save()
+				
+			obj = list(events.objects.all())
+			organizer , content , date ,ID = [],[],[],[]
+			for i in obj:
+				organizer.append(i.organizer)
+				content.append(i.content)
+				date.append(i.date)
+				ID.append(i.id)
 			return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month']),"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user})
 		
 		elif request.POST["action"] == "Next" :
