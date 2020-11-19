@@ -34,7 +34,7 @@
 	        <form id="pop_content" method="POST" action="">{% csrf_token %}
 					<p>Event Date <input id = "New_date" type="text" name="New_date" value="" readonly="1"></p>
 					<p>Event Agenda <input type="text" name="Agenda" placeholder="Enter Agenda Here" required></p>
-					<p>Event Organizer <input type="text" name="Organizer" placeholder="Enter Organizer's Name" required></p>
+					<p>Event Organizer <input type="text" name="Organizer" placeholder="Enter Organizer's Name" value="{{ user }}" readonly="1"></p>
 					<p><input type="Submit" name="action" value="Add Event"></p>
 					<input type="text" name="month" value="{{ month }}" style="visibility: hidden;display: none;">
 					<input type="text" name="year" value="{{ year }}" style="visibility: hidden;display: none;">
@@ -50,13 +50,29 @@
 	        <form id="edit_pop_content" method="POST" action="">{% csrf_token %}
 					<p>Event Date<input id = "edit_New_date" type="text" name="edit_New_date" value="" required></p>
 					<p>Event Agenda<input type="text" name="edit_Agenda" id="edit_Agenda" placeholder="Enter Agenda Here" required></p>
-					<p>Event Organizer<input type="text" name="edit_Organizer" id="edit_Organizer" placeholder="Enter Organizer's Name" required></p>
-					<p><input type="Submit" name="action" value="Edit Event"></p>
+					<p>Event Organizer<input type="text" name="edit_Organizer" id="edit_Organizer" placeholder="Enter Organizer's Name" readonly="1"></p>
+					<p><input type="Submit" name="action" value="Edit Event"><input type="Submit" name="action" value="Delete Event"></p>
 					<input type="text" name="month" value="{{ month }}" style="visibility: hidden;display: none;">
 					<input type="text" name="year" value="{{ year }}" style="visibility: hidden;display: none;">
 					<p><input id = "old_New_date" type="text" name="old_New_date" value="" style="visibility: hidden;display: none;"></p>
 					<p><input type="text" name="old_Agenda" id="old_Agenda" placeholder="Enter Agenda Here" style="visibility: hidden;display: none;"></p>
 					<p><input type="text" name="old_Organizer" id="old_Organizer" placeholder="Enter Organizer's Name" style="visibility: hidden;display: none;"></p>
+			</form>
+	    </div>
+	</div>
+	<div class="req_popup" id="req_popup">
+	    <span class="helper"></span>
+	    <div style="text-align: center;font-size: 20px;">
+	        <div class="req_popupCloseButton">&times;</div>
+	        Event Details
+	        <form id="req_pop_content" method="POST" action="">{% csrf_token %}
+					<p>Event Date <input id = "req_New_date" type="text" name="req_New_date" value="" readonly="1"></p>
+					<p>Event Agenda <input type="text" name="req_Agenda" placeholder="Enter Agenda Here" required></p>
+					<p>Event Organizer <input type="text" name="req_Organizer" placeholder="Enter Organizer's Name" value="{{ user }}" readonly="1"></p>
+					<p><input type="Submit" name="action" value="Request Event"></p>
+					<input type="text" name="month" value="{{ month }}" style="visibility: hidden;display: none;">
+					<input type="text" name="year" value="{{ year }}" style="visibility: hidden;display: none;">
+					<input type="text" id="event_id" name="id" value="" style="visibility: hidden;display: none;">
 			</form>
 	    </div>
 	</div>
@@ -82,6 +98,7 @@
 
 		document.getElementsByClassName("popupCloseButton")[0].onclick = function() {document.getElementsByClassName("popup")[0].style.display="none";};
 		document.getElementsByClassName("edit_popupCloseButton")[0].onclick = function() {document.getElementsByClassName("edit_popup")[0].style.display="none";};
+		document.getElementsByClassName("req_popupCloseButton")[0].onclick = function() {document.getElementsByClassName("req_popup")[0].style.display="none";};
 
 		function make_cal(year,month,event_dates){
 			
@@ -204,7 +221,7 @@
 		}
 	
 		function add_events(year,month,buts){
-			var auth = "admi";		
+			var auth = "{{ user }}";		
 			for(var z = 0;z<buts.length;z++){
 				buts[z].onclick = function(){
 			
@@ -214,7 +231,8 @@
 					document.getElementById("New_date").value = year+"-"+month+"-"+this.children[0].innerHTML;
 				}
 				else{
-					alert("Not Authorized ")
+					document.getElementsByClassName("req_popup")[0].style.display = "block";
+					document.getElementById("req_New_date").value = year+"-"+month+"-"+this.children[0].innerHTML;
 				}
 				};
 			}

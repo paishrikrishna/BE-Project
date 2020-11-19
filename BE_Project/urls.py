@@ -21,8 +21,8 @@ from camera.views import cam_index_page
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home_index_page),
-    path('homepage',home_index_page),
-    path('calander',cal_index_page),
-    path('camera',cam_index_page),
+    path('<str:user>/homepage',home_index_page),
+    path('<str:user>/calander',cal_index_page),
+    path('<str:user>/camera',cam_index_page),
 
 ]

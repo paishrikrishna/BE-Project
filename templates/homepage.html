@@ -116,7 +116,7 @@
 		}
 
 		
-		.popup,.edit_popup{
+		.popup,.edit_popup,.req_popup{
 		    background:rgba(0,0,0,.4);
 		    cursor:pointer;
 		    display:none;
@@ -127,13 +127,13 @@
 		    width:100%;
 		    z-index:10000;
 		}
-		.popup .helper ,.edit_popup .helper{
+		.popup .helper ,.edit_popup .helper,.req_popup .helper{
 		    display:inline-block;
 		    height:100%;
 		    vertical-align:middle;
 
 		}
-		.popup > div , .edit_popup > div {
+		.popup > div , .edit_popup > div, .req_popup > div {
 		    background-color: #fff;
 		    box-shadow: 10px 10px 60px #555;
 		    display: inline-block;
@@ -187,6 +187,26 @@
 		.edit_popupCloseButton:hover {
 		    background-color: #ccc;
 		}
+		.req_popupCloseButton {
+		    background-color: #fff;
+		    border: 3px solid #999;
+		    border-radius: 50px;
+		    cursor: pointer;
+		    display: inline-block;
+		    font-family: arial;
+		    font-weight: bold;
+		    position: absolute;
+		    top: -20px;
+		    right: -20px;
+		    font-size: 25px;
+		    line-height: 30px;
+		    width: 30px;
+		    height: 30px;
+		    text-align: center;
+		}
+		.req_popupCloseButton:hover {
+		    background-color: #ccc;
+		}
 		.trigger_popup_fricc {
 		    cursor: pointer;
 		    font-size: 20px;
@@ -201,15 +221,15 @@
 </head>
 <body >
 	<div id="sidebar">
-		<a href="./homepage" id="logo"><img src="" alt="LOGO"></a>
-		<a href="./calander">Calender</a>
+		<a href="../{{ user }}/homepage" id="logo"><img src="" alt="LOGO"></a>
+		<a href="../{{ user }}/calander">Calender</a>
 		<a href="">Sensor</a>
-		<a href="./camera">Camera</a>
+		<a href="../{{ user }}/camera">Camera</a>
 		<a href="">IOT</a>
 	</div>
 	<div id="main">
 		{% block content %}
-			Home Page
+			{{ user }}
 		{% endblock %}
 	</div>
 </body>
