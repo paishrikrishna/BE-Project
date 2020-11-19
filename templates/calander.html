@@ -48,9 +48,9 @@
 	        <div class="edit_popupCloseButton">&times;</div>
 	        Event Details
 	        <form id="edit_pop_content" method="POST" action="">{% csrf_token %}
-					<p><input id = "edit_New_date" type="text" name="edit_New_date" value="" required></p>
-					<p><input type="text" name="edit_Agenda" id="edit_Agenda" placeholder="Enter Agenda Here" required></p>
-					<p><input type="text" name="edit_Organizer" id="edit_Organizer" placeholder="Enter Organizer's Name" required></p>
+					<p>Event Date <input id = "edit_New_date" type="text" name="edit_New_date" value="" required></p>
+					<p>Event Agenda <input type="text" name="edit_Agenda" id="edit_Agenda" placeholder="Enter Agenda Here" required></p>
+					<p>Event Organizer <input type="text" name="edit_Organizer" id="edit_Organizer" placeholder="Enter Organizer's Name" required></p>
 					<p><input type="Submit" name="action" value="Edit Event"></p>
 					<input type="text" name="month" value="{{ month }}" style="visibility: hidden;display: none;">
 					<input type="text" name="year" value="{{ year }}" style="visibility: hidden;display: none;">
