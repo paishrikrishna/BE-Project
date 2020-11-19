@@ -38,6 +38,25 @@
 					<p><input type="Submit" name="action" value="Add Event"></p>
 					<input type="text" name="month" value="{{ month }}" style="visibility: hidden;display: none;">
 					<input type="text" name="year" value="{{ year }}" style="visibility: hidden;display: none;">
+					<input type="text" id="event_id" name="id" value="" style="visibility: hidden;display: none;">
+			</form>
+	    </div>
+	</div>
+	<div class="edit_popup" id="popup">
+	    <span class="helper"></span>
+	    <div style="text-align: center;font-size: 20px;">
+	        <div class="edit_popupCloseButton">&times;</div>
+	        Event Details
+	        <form id="edit_pop_content" method="POST" action="">{% csrf_token %}
+					<p><input id = "edit_New_date" type="text" name="edit_New_date" value="" required></p>
+					<p><input type="text" name="edit_Agenda" id="edit_Agenda" placeholder="Enter Agenda Here" required></p>
+					<p><input type="text" name="edit_Organizer" id="edit_Organizer" placeholder="Enter Organizer's Name" required></p>
+					<p><input type="Submit" name="action" value="Edit Event"></p>
+					<input type="text" name="month" value="{{ month }}" style="visibility: hidden;display: none;">
+					<input type="text" name="year" value="{{ year }}" style="visibility: hidden;display: none;">
+					<p><input id = "old_New_date" type="text" name="old_New_date" value="" style="visibility: hidden;display: none;"></p>
+					<p><input type="text" name="old_Agenda" id="old_Agenda" placeholder="Enter Agenda Here" style="visibility: hidden;display: none;"></p>
+					<p><input type="text" name="old_Organizer" id="old_Organizer" placeholder="Enter Organizer's Name" style="visibility: hidden;display: none;"></p>
 			</form>
 	    </div>
 	</div>
@@ -51,12 +70,18 @@
 		var organier = ("{{ organizer }}").replace("[","").replace("]","").split(",");
 		var event_dates = ("{{ event_dates }}").replace("[","").replace("]","").split(",");
 		var content = ("{{ content }}").replace("[","").replace("]","").split(",");
-		var buts = (document.getElementsByClassName("Dates_class"));
+		var ids = ("{{ ID }}").replace("[","").replace("]","").split(",");
 		
+		var buts = (document.getElementsByClassName("Dates_class"));
+		var log_buts = (document.getElementsByClassName("Events_log_details"));
+
 		make_cal(year_num,Mon_num,event_dates);
 		event_reminder(year_num,Mon_num,event_dates);
 		add_events(year_num,Mon_num,buts);
+		edit_events(log_buts);
+
 		document.getElementsByClassName("popupCloseButton")[0].onclick = function() {document.getElementsByClassName("popup")[0].style.display="none";};
+		document.getElementsByClassName("edit_popupCloseButton")[0].onclick = function() {document.getElementsByClassName("edit_popup")[0].style.display="none";};
 
 		function make_cal(year,month,event_dates){
 			
@@ -127,6 +152,7 @@
 					var dates = event_dates[z].replace(" ","").replace("'","").replace("'","").split("-");
 					if(dates[0]+ "-" +dates[1] == String(year)+ "-" +String(month)){	
 						var row = table.insertRow(count+1);
+						row.className="Events_log_details";
 						row.id = "Event_holder";
 						var dates = event_dates[z].replace(" ","").replace("'","").replace("'","");
 						var cell = row.insertCell(0);
@@ -159,6 +185,30 @@
 			}
 		}
 
+		function edit_events(log_buts){
+			for(var z=0;z<log_buts.length;z++){
+				log_buts[z].onclick = function(){
+					console.log(this.rowIndex);
+					document.getElementsByClassName("edit_popup")[0].style.display = "block";
+					if(this.rowIndex!=1){
+						document.getElementById("edit_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
+						document.getElementById("edit_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
+						document.getElementById("edit_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
+						document.getElementById("old_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
+						document.getElementById("old_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
+						document.getElementById("old_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>","").replace(" ",""));
+					}
+					else{
+						document.getElementById("edit_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
+						document.getElementById("edit_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
+						document.getElementById("edit_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
+						document.getElementById("old_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
+						document.getElementById("old_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
+						document.getElementById("old_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
+					}
+				}
+			}
+		}
 	
 		function add_events(year,month,buts){		
 			for(var z = 0;z<buts.length;z++){

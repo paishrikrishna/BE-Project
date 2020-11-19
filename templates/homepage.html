@@ -116,7 +116,7 @@
 		}
 
 		
-		.popup{
+		.popup,.edit_popup{
 		    background:rgba(0,0,0,.4);
 		    cursor:pointer;
 		    display:none;
@@ -127,12 +127,12 @@
 		    width:100%;
 		    z-index:10000;
 		}
-		.popup .helper{
+		.popup .helper ,.edit_popup .helper{
 		    display:inline-block;
 		    height:100%;
 		    vertical-align:middle;
 		}
-		.popup > div {
+		.popup > div , .edit_popup > div {
 		    background-color: #fff;
 		    box-shadow: 10px 10px 60px #555;
 		    display: inline-block;
@@ -163,6 +163,26 @@
 		    text-align: center;
 		}
 		.popupCloseButton:hover {
+		    background-color: #ccc;
+		}
+		.edit_popupCloseButton {
+		    background-color: #fff;
+		    border: 3px solid #999;
+		    border-radius: 50px;
+		    cursor: pointer;
+		    display: inline-block;
+		    font-family: arial;
+		    font-weight: bold;
+		    position: absolute;
+		    top: -20px;
+		    right: -20px;
+		    font-size: 25px;
+		    line-height: 30px;
+		    width: 30px;
+		    height: 30px;
+		    text-align: center;
+		}
+		.edit_popupCloseButton:hover {
 		    background-color: #ccc;
 		}
 		.trigger_popup_fricc {
