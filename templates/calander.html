@@ -32,9 +32,9 @@
 	        <div class="popupCloseButton">&times;</div>
 	        Event Details
 	        <form id="pop_content" method="POST" action="">{% csrf_token %}
-					<p><input id = "New_date" type="text" name="New_date" value=""></p>
-					<p><input type="text" name="Agenda" placeholder="Enter Agenda Here"></p>
-					<p><input type="text" name="Organizer" placeholder="Enter Organizer's Name"></p>
+					<p><input id = "New_date" type="text" name="New_date" value="" readonly="1"></p>
+					<p><input type="text" name="Agenda" placeholder="Enter Agenda Here" required></p>
+					<p><input type="text" name="Organizer" placeholder="Enter Organizer's Name" required></p>
 					<p><input type="Submit" name="action" value="Add Event"></p>
 					<input type="text" name="month" value="{{ month }}" style="visibility: hidden;display: none;">
 					<input type="text" name="year" value="{{ year }}" style="visibility: hidden;display: none;">
@@ -163,11 +163,11 @@
 		function add_events(year,month,buts){		
 			for(var z = 0;z<buts.length;z++){
 				buts[z].onclick = function(){
-					if(this.children[2].innerHTML == "Add Event"){
-						//alert("Add event to "+this.children[0].innerHTML);
-						document.getElementsByClassName("popup")[0].style.display = "block";
-						document.getElementById("New_date").value = year+"-"+month+"-"+this.children[0].innerHTML;
-					}
+			
+				//alert("Add event to "+this.children[0].innerHTML);
+				document.getElementsByClassName("popup")[0].style.display = "block";
+				document.getElementById("New_date").value = year+"-"+month+"-"+this.children[0].innerHTML;
+			
 				};
 			}
 		}
