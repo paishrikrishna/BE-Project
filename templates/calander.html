@@ -59,7 +59,7 @@
 				}
 				p++;
 				var cell1 = row.insertCell(p);
-				cell1.className="Dates";
+				cell1.className="Dates_class";
 				cell1.id = "Dates";
 				var dt = new Date();
 				if(i == dt.getDate() && month == (dt.getMonth())+1 && year == dt.getFullYear()){
@@ -92,9 +92,13 @@
 				else if(dots == 1){
 					txt = "1 Event";
 				}
+				else{
+					txt = "Add Event";
+				}
 				var textnode = document.createTextNode(txt);
 				div.append(textnode);              
 				cell1.append(div);
+				
 			}
 		}
 
@@ -138,6 +142,8 @@
 		}
 
 		
+		document.getElementsByClassName("Dates_class").onclick = function(){alert(this.innerHTML)};	
+
 		</script>
 		
 	{% endautoescape %}

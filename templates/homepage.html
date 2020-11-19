@@ -43,6 +43,7 @@
 			border-radius: 10px;
 			background-color: blue;
 			overflow-x: hidden;
+			transition: 1s;
 		}
 		#calander,#camera_feed,#Events_log{
 			margin: auto;
@@ -90,12 +91,12 @@
 		}
 		#Events{
 			opacity: 0;
-			display: none;
-			font-size: 17px;
+			font-size: 0px;
+			transition: 1s;
 		}
 		#Dates:hover #Events{
 			opacity: 1;
-			display: block;
+			font-size: 17px;
 			transition: 1s;
 		}
 		#Event_Date,#Event_Organizer,#Event_Agenda{
@@ -105,6 +106,7 @@
 			text-align: center;
 			border-radius: 20px;
 			background-color: blue;
+			transition: 1s;
 		}
 		#Event_holder:hover #Event_Date,#Event_holder:hover #Event_Agenda,#Event_holder:hover #Event_Organizer{
 			background-color: green;
