@@ -21,6 +21,9 @@ def req_events_index_page(request,user):
 
 			obj = req_events.objects.get(id=int(request.POST['row']))
 			obj.delete()
+		elif request.POST['action']=="Delete Event":
+			obj = req_events.objects.get(id=int(request.POST['row']))
+			obj.delete()
 
 	obj = list(req_events.objects.all())
 	organizer , content , date ,ID= [],[],[],[]
