@@ -25,6 +25,23 @@
 			<td style="border-radius: 20px;background-color: red;color: white">Agenda</td>
 		</tr>
 	</table>
+	
+	<div class="popup" id="popup">
+	    <span class="helper"></span>
+	    <div style="text-align: center;font-size: 20px;">
+	        <div class="popupCloseButton">&times;</div>
+	        Event Details
+	        <form id="pop_content" method="POST" action="">{% csrf_token %}
+					<p><input id = "New_date" type="text" name="New_date" value=""></p>
+					<p><input type="text" name="Agenda" placeholder="Enter Agenda Here"></p>
+					<p><input type="text" name="Organizer" placeholder="Enter Organizer's Name"></p>
+					<p><input type="Submit" name="action" value="Add Event"></p>
+					<input type="text" name="month" value="{{ month }}" style="visibility: hidden;display: none;">
+					<input type="text" name="year" value="{{ year }}" style="visibility: hidden;display: none;">
+			</form>
+	    </div>
+	</div>
+
 	{% autoescape off %}
 	<script>
 		
@@ -34,11 +51,12 @@
 		var organier = ("{{ organizer }}").replace("[","").replace("]","").split(",");
 		var event_dates = ("{{ event_dates }}").replace("[","").replace("]","").split(",");
 		var content = ("{{ content }}").replace("[","").replace("]","").split(",");
-
+		var buts = (document.getElementsByClassName("Dates_class"));
+		
 		make_cal(year_num,Mon_num,event_dates);
 		event_reminder(year_num,Mon_num,event_dates);
-		
-
+		add_events(year_num,Mon_num,buts);
+		document.getElementsByClassName("popupCloseButton")[0].onclick = function() {document.getElementsByClassName("popup")[0].style.display="none";};
 
 		function make_cal(year,month,event_dates){
 			
@@ -136,14 +154,24 @@
 					dates="";
 				}
 			if(count == 0){
-				table.remove()
+				table.remove();
 				document.getElementById("log_d").innerHTML = "No Events Scheduled for this month";
 			}
 		}
 
+	
+		function add_events(year,month,buts){		
+			for(var z = 0;z<buts.length;z++){
+				buts[z].onclick = function(){
+					if(this.children[2].innerHTML == "Add Event"){
+						//alert("Add event to "+this.children[0].innerHTML);
+						document.getElementsByClassName("popup")[0].style.display = "block";
+						document.getElementById("New_date").value = year+"-"+month+"-"+this.children[0].innerHTML;
+					}
+				};
+			}
+		}
 		
-		document.getElementsByClassName("Dates_class").onclick = function(){alert(this.innerHTML)};	
-
 		</script>
 		
 	{% endautoescape %}
