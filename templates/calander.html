@@ -204,18 +204,20 @@
 		}
 
 		function edit_events(log_buts){
-			for(var z=0;z<log_buts.length;z++){
-				log_buts[z].onclick = function(){
+			if("{{ user }}" == "admin"){
+				for(var z=0;z<log_buts.length;z++){
+					log_buts[z].onclick = function(){
+						
+						document.getElementsByClassName("edit_popup")[0].style.display = "block";
+						
+						document.getElementById("edit_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
+						document.getElementById("edit_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
+						document.getElementById("edit_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
+						document.getElementById("old_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
+						document.getElementById("old_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
+						document.getElementById("old_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
 					
-					document.getElementsByClassName("edit_popup")[0].style.display = "block";
-					
-					document.getElementById("edit_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
-					document.getElementById("edit_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
-					document.getElementById("edit_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
-					document.getElementById("old_New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
-					document.getElementById("old_Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
-					document.getElementById("old_Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
-				
+					}
 				}
 			}
 		}
