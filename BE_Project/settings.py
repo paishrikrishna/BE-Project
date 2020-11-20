@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'camera',
     'requested_events',
     'login_page',
+    'new_users',
 ]
 
 MIDDLEWARE = [

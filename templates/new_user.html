@@ -1,71 +1,124 @@
 <!DOCTYPE html>
 <html>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <head>
-	<title>Google Login</title>
-	
-	<style type="text/css">
-		#login{
-			display: inline-block;
-			border-style: solid;
-			border-width: 3px;
-			border-color: lightgray;
-			padding: 40px;
-			margin-top: 2%;
-			text-align: center;
-		}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+}
 
-		#email{
-			padding: 20px;
-			border-radius: 5px;
-			margin-top: 10px;
-		}
+* {
+  box-sizing: border-box;
+}
 
-		#submit{
-			padding: 10px 20px 10px 20px;
-			margin: auto;
-			margin-top: 4px;
-			text-align: center;
-			background: blue;
-			color: white;
+/* Add padding to containers */
+.container {
+  border-radius: 20px;
+  padding: 36px;
+  background-color: white;
+  margin-top: 10%;
+}
 
-		}
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
 
-	</style>
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
 
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
 
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+</style>
 </head>
-<body style="text-align: center;">
-	<div>
-		<img style="width: 50%;max-width: 400px;height: auto;" src="" alt="logo">
-	</div>
-	<div style="margin-top: 0%;float: center;display: block;font-size: 20px;">
-		Please Login to access the page or <a href="">click here to request access</a>
-	</div>
-	<div id="login">
-		<div id="details">
-			<form method="POST" action="./" id="login_form" name="login_form"> {% csrf_token %}
-				<div style="margin: auto;">
-					<div style="font-size: 14px;margin-top: 10px;display: block;margin-right: 200px;">
-						Email Id	
-					</div>
-					<div style="display: block;margin: auto;">
-						<input id="email" type="text" name="email" placeholder="Email or Phone" value="" required="">	
-					</div>
-					<div style="margin: auto;font-size: 14px;margin-top: 4px;display: block;margin-right: 200px;">
-						Password	
-					</div>
-					<div style="display: block;margin: auto;">
-						<input id="email" type="password" name="password" placeholder="Password" value="" required="">	
-					</div>
-					<div style="display: block;margin: auto;">
-						<input id="submit" type="submit" value="Request Login" name="Action">	
-					</div>
-				</dir>
-			</form>
-		</div>
-	</div>
+<body>
+<form action="" method="POST">{% csrf_token %}
+  <div class="container">
+    <h1>Register</h1>
+    <hr>
+
+    <label for="email"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" id="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" id="psw" required>
+
+    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+
+    <button type="submit" class="registerbtn">Register</button>
+    <p>Already have an account? <a href="../">Sign in</a>.</p>
+  </div>
+</form>
+
+{% autoescape off %}
+	<script>
+		var flag = "{{ flag }}";
+		hide(flag);
+
+		function hide(flag){
+			var x = document.getElementsByClassName("container")[0];
+			if(flag == "3"){
+				x.style.display = "block";
+			}
+			else if(flag == "1"){
+				alert("Account Request Already Exists Please wait patiently or check your details");
+			}
+			else if(flag == "2"){
+				alert("Account Already Exists Please check your details");
+			}
+			else if(flag == "0"){
+				var x = document.getElementsByClassName("container")[0];
+				x.innerHTML="";
+				var a = document.createElement("a");
+				var textnode = document.createTextNode("Request has been sent sucessfully Please click here to go back");
+				a.append(textnode); 
+				a.href="../";
+				x.append(a);
+				x.style="height:100%";
+			}
+		}
+
+	</script>
+{% endautoescape %}
+
+
 </body>
 </html>
