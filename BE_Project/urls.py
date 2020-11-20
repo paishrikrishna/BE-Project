@@ -20,6 +20,7 @@ from calander.views import cal_index_page
 from camera.views import cam_index_page
 from requested_events.views import req_events_index_page
 from login_page.views import login_index_page
+from new_users.views import new_user_index_page
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',login_index_page),
@@ -27,4 +28,5 @@ urlpatterns = [
     path('<str:user>/calander',cal_index_page),
     path('<str:user>/camera',cam_index_page),
     path('<str:user>/requested_events',req_events_index_page),
+    path('new_user',new_user_index_page),
 ]
