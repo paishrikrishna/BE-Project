@@ -9,6 +9,7 @@ def login_index_page(request):
 		objects = login_model.objects.all()
 		for i in objects:
 			if request.POST['email'] == i.username and request.POST['password'] == i.password:
-				return render(request,"homepage.html",{"user":i.auth})
+				return render(request,"homepage.html",{"user":i.username})
+		return render(request,"login_page.html",{})
 	else:		
 		return render(request,"login_page.html",{})

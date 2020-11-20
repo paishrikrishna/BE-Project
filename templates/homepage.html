@@ -42,6 +42,7 @@
 			font-size: 20px;
 			border-radius: 10px;
 			background-color: blue;
+			color: white;
 			overflow-x: hidden;
 			transition: 1s;
 		}
@@ -105,10 +106,11 @@
 			margin: 0px 20px 10px 20px;
 			text-align: center;
 			border-radius: 20px;
+			color: white;
 			background-color: blue;
 			transition: 1s;
 		}
-		#Event_holder:hover #Event_Date,#Event_holder:hover #Event_Agenda,#Event_holder:hover #Event_Organizer{
+		#Event_holder:hover #Event_Date,#Event_holder:hover #Event_Agenda,#Event_holder:hover #Event_Organizer,#user_details_holder:hover #Event_Date,#user_details_holder:hover #Event_Agenda,#user_details_holder:hover #Event_Organizer{
 			background-color: green;
 			color: white; 
 			transition: 1s;
@@ -215,6 +217,10 @@
 		    font-weight: bold;
 		}
 		
+		#event_log_d_button:hover{
+			cursor: pointer;
+			transition: 1s;
+		}
 
 
 	</style>
@@ -226,9 +232,10 @@
 		<span id="admin_panel">
 			<a href="">Sensor</a>
 			<a href="../{{ user }}/camera">Camera</a>
-			<a href="../{{ user }}/requested_events">Requests</a>
+			<a href="../{{ user }}/requested_events" id="req">Requests</a>
 		<span>
 	</div>
+
 	<div id="main">
 		{% block content %}
 			{{ user }}
@@ -246,6 +253,11 @@
 			else{
 				x.style.display = "none";
 			}
+
+		}
+
+		if(parseInt("{{ date_count }}")>=1){
+			document.getElementById("req").style="background-color:red;color:white;border-radius:20px";
 		}
 
 	</script>
