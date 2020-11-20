@@ -12,7 +12,7 @@ import datetime
 
 x = str(datetime.datetime.now()).split("-")
 
-def cal_index_page(request,user):
+def cal_index_page(request,user,auth):
 	obj = list(req_events.objects.all())
 	date_count = 0
 	for i in obj:
@@ -31,7 +31,7 @@ def cal_index_page(request,user):
 		ID.append(i.id)
 	print(date)
 	if request.method == 'GET':
-		return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":x[1],"year":int(x[0]),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"date_count":date_count})
+		return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":x[1],"year":int(x[0]),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"auth":auth,"date_count":date_count})
 	else:
 		print(request.POST)
 		if request.POST["action"]=="Add Event":
@@ -51,7 +51,7 @@ def cal_index_page(request,user):
 				content.append(i.content)
 				date.append(i.date)
 				ID.append(i.id)
-			return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month']),"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"date_count":date_count})
+			return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month']),"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"auth":auth,"date_count":date_count})
 		
 		elif request.POST["action"]=="Edit Event":
 			
@@ -76,7 +76,7 @@ def cal_index_page(request,user):
 				date.append(i.date)
 				ID.append(i.id)
 
-			return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month']),"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"date_count":date_count})
+			return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month']),"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"auth":auth,"date_count":date_count})
 		
 		elif request.POST["action"]=="Delete Event":
 			
@@ -98,7 +98,7 @@ def cal_index_page(request,user):
 				date.append(i.date)
 				ID.append(i.id)
 
-			return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month']),"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"date_count":date_count})
+			return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month']),"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"auth":auth,"date_count":date_count})
 		elif request.POST["action"]=="Request Event":
 			
 			if(list(request.POST['req_Agenda'])[0]==" "):
@@ -124,15 +124,15 @@ def cal_index_page(request,user):
 				content.append(i.content)
 				date.append(i.date)
 				ID.append(i.id)
-			return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month']),"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"date_count":date_count})
+			return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month']),"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"auth":auth,"date_count":date_count})
 		
 		elif request.POST["action"] == "Next" :
 			if int(request.POST['month']) == 12: 
-				return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":1,"year":int(request.POST['year'])+1,"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"date_count":date_count})
+				return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":1,"year":int(request.POST['year'])+1,"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"auth":auth,"date_count":date_count})
 			elif int(request.POST['month']) < 12:
-				return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month'])+1,"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"date_count":date_count})
+				return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month'])+1,"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"auth":auth,"date_count":date_count})
 		else:
 			if int(request.POST['month']) == 1: 
-				return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":12,"year":int(request.POST['year'])-1,"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"date_count":date_count})
+				return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":12,"year":int(request.POST['year'])-1,"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"auth":auth,"date_count":date_count})
 			elif int(request.POST['month']) > 1:
-				return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month'])-1,"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"date_count":date_count})
+				return render(request,"calander.html",{"date":x[2].split(" ")[0],"month":int(request.POST['month'])-1,"year":int(request.POST['year']),"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"auth":auth,"date_count":date_count})

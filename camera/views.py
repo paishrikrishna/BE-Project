@@ -6,7 +6,7 @@ from requested_events.models import req_events
 
 from new_users.models import new_login_model
 
-def cam_index_page(request,user):
+def cam_index_page(request,user,auth):
 	obj = list(req_events.objects.all())
 	date_count = 0
 	for i in obj:
@@ -14,5 +14,5 @@ def cam_index_page(request,user):
 	obj = list(new_login_model.objects.all())
 	for i in obj:
 		date_count += 1	
-	return render(request,"camera.html",{"date_count":date_count,"user":user})
+	return render(request,"camera.html",{"date_count":date_count,"user":user,"auth":auth})
 

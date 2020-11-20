@@ -227,12 +227,12 @@
 </head>
 <body >
 	<div id="sidebar">
-		<a href="../{{ user }}/homepage" id="logo"><img src="" alt="LOGO"></a>
-		<a href="../{{ user }}/calander">Calender</a>
+		<a href="../../{{ user }}/{{ auth }}/homepage" id="logo"><img src="" alt="LOGO"></a>
+		<a href="../../{{ user }}/{{ auth }}/calander">Calender</a>
 		<span id="admin_panel">
 			<a href="">Sensor</a>
-			<a href="../{{ user }}/camera">Camera</a>
-			<a href="../{{ user }}/requested_events" id="req">Requests</a>
+			<a href="../../{{ user }}/{{ auth }}/camera">Camera</a>
+			<a href="../../{{ user }}/{{ auth }}/requested_events" id="req">Requests</a>
 		<span>
 	</div>
 
@@ -247,7 +247,7 @@
 
 		function admin_panel(){
 			var x = document.getElementById("admin_panel");
-			if("{{ user }}" == "admin"){
+			if("{{ auth }}" == "admin"){
 				x.style.display = "block";
 			}
 			else{

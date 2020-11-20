@@ -24,9 +24,9 @@ from new_users.views import new_user_index_page
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',login_index_page),
-    path('<str:user>/homepage',home_index_page),
-    path('<str:user>/calander',cal_index_page),
-    path('<str:user>/camera',cam_index_page),
-    path('<str:user>/requested_events',req_events_index_page),
+    path('<str:user>/<str:auth>/homepage',home_index_page),
+    path('<str:user>/<str:auth>/calander',cal_index_page),
+    path('<str:user>/<str:auth>/camera',cam_index_page),
+    path('<str:user>/<str:auth>/requested_events',req_events_index_page),
     path('new_user',new_user_index_page),
 ]

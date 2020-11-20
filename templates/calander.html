@@ -204,7 +204,7 @@
 		}
 
 		function edit_events(log_buts){
-			if("{{ user }}" == "admin"){
+			if("{{ auth }}" == "admin"){
 				for(var z=0;z<log_buts.length;z++){
 					log_buts[z].onclick = function(){
 						
@@ -223,7 +223,7 @@
 		}
 	
 		function add_events(year,month,buts){
-			var auth = "{{ user }}";		
+			var auth = "{{ auth }}";		
 			for(var z = 0;z<buts.length;z++){
 				buts[z].onclick = function(){
 			

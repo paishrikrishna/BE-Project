@@ -13,7 +13,7 @@ from new_users.models import new_login_model
 
 # Create your views here.
 
-def req_events_index_page(request,user):
+def req_events_index_page(request,user,auth):
 	if request.method=="POST":
 		if request.POST['action']=="Add Event":
 			try:
@@ -61,4 +61,4 @@ def req_events_index_page(request,user):
 		password.append(i.password)
 		user_ID.append(i.id)
 
-	return render(request,"requested_events.html",{"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"username":username,"password":password,"user_ID":user_ID})
+	return render(request,"requested_events.html",{"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"username":username,"password":password,"user_ID":user_ID,"auth":auth})
