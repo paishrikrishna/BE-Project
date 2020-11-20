@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+	<title>Google Login</title>
+	
+	<style type="text/css">
+		#login{
+			display: inline-block;
+			border-style: solid;
+			border-width: 3px;
+			border-color: lightgray;
+			padding: 40px;
+			margin-top: 2%;
+			text-align: center;
+		}
+
+		#email{
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 10px;
+		}
+
+		#submit{
+			padding: 10px 20px 10px 20px;
+			margin: auto;
+			margin-top: 4px;
+			text-align: center;
+			background: blue;
+			color: white;
+
+		}
+
+	</style>
+
+
+</head>
+<body style="text-align: center;">
+	<div>
+		<img style="width: 50%;max-width: 400px;height: auto;" src="" alt="logo">
+	</div>
+	<div style="margin-top: 0%;float: center;display: block;font-size: 20px;">
+		Please Login to access the page or <a href="">click here to request access</a>
+	</div>
+	<div id="login">
+		<div id="details">
+			<form method="POST" action="./" id="login_form" name="login_form"> {% csrf_token %}
+				<div style="margin: auto;">
+					<div style="font-size: 14px;margin-top: 10px;display: block;margin-right: 200px;">
+						Email Id	
+					</div>
+					<div style="display: block;margin: auto;">
+						<input id="email" type="text" name="email" placeholder="Email or Phone" value="" required="">	
+					</div>
+					<div style="margin: auto;font-size: 14px;margin-top: 4px;display: block;margin-right: 200px;">
+						Password	
+					</div>
+					<div style="display: block;margin: auto;">
+						<input id="email" type="password" name="password" placeholder="Password" value="" required="">	
+					</div>
+					<div style="display: block;margin: auto;">
+						<input id="submit" type="submit" value="Login" name="Action">	
+					</div>
+				</dir>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
