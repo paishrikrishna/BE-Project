@@ -5,7 +5,7 @@
 	<style type="text/css">
 		#sidebar{
 		  height: 100%;
-		  width: 220px;
+		  width: 250px;
 		  position: fixed; 
 		  z-index: 1; 
 		  top: 0; 
@@ -34,7 +34,7 @@
 
 		}
 		#main {
-			margin-left: 220px;
+			margin-left: 260px;
 			padding: 0px 10px;
 		}
 		#Dates{
@@ -221,6 +221,9 @@
 			cursor: pointer;
 			transition: 1s;
 		}
+		#inbox:hover{
+			cursor: pointer;
+		}
 
 
 	</style>
@@ -230,6 +233,7 @@
 		<a href="../../{{ user }}/{{ auth }}/homepage" id="logo"><img src="" alt="LOGO"></a>
 		<a href="../../{{ user }}/{{ auth }}/calander">Calender</a>
 		<a href="../../{{ user }}/{{ auth }}/notice_board" id="notice">Notices</a>
+		<a href="../../{{ user }}/{{ auth }}/message">Messages</a>
 		<span id="admin_panel">
 			<a href="">Sensor</a>
 			<a href="../../{{ user }}/{{ auth }}/camera">Camera</a>

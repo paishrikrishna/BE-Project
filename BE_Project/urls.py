@@ -22,6 +22,8 @@ from requested_events.views import req_events_index_page
 from login_page.views import login_index_page
 from new_users.views import new_user_index_page
 from notice_board.views import notice_index_page
+from messaging_module.views import message_index_page
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',login_index_page),
@@ -30,5 +32,6 @@ urlpatterns = [
     path('<str:user>/<str:auth>/camera',cam_index_page),
     path('<str:user>/<str:auth>/requested_events',req_events_index_page),
     path('<str:user>/<str:auth>/notice_board',notice_index_page),
+    path('<str:user>/<str:auth>/message',message_index_page),
     path('new_user',new_user_index_page),
 ]
