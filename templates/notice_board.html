@@ -1,15 +1,15 @@
 {% extends "homepage.html" %}
 {% block content %}
-	<div id="generate_notice">
-		<form method="POST" action="">{% csrf_token %}
+	<div id="generate_notice" style="border-style: solid;border-width: 1px;">
+		<form method="POST" action="" style="margin-left: 30%;margin-top: 20px;margin-bottom: 20px;">{% csrf_token %}
 			<input type="text" id="issued_by" name="issued_by" value="{{ user }}">
 			<input type="text" id="date" name="date" placeholder="date" value="">
-			<input type="text" id="Subject" name="Subject" placeholder="Subject">
-			<p><textarea id="content" name="content" placeholder="content" style="width: 700px;height: 200px;"></textarea></p>
+			<input type="text" id="Subject" name="Subject" placeholder="Subject" required>
+			<p><textarea id="content" name="content" placeholder="content" style="width: 700px;height: 200px;" required></textarea></p>
 			<input type="submit" name="action" value="Publish Notice">
 		</form>
 	</div>
-	<div id="event_de" style="margin: auto;font-size: 40px;text-align: center;">
+	<div id="event_de" style="margin: auto;font-size: 40px;text-align: center;margin-top: 20px;">
 		Notices
 	</div>
 	<table id="notice_board" style="margin-top: 20px; padding: 0px 60px 20px 60px;width: 100%;font-size: 30px;text-align: center;">
@@ -38,14 +38,13 @@
 	<script>
 		var dt = new Date();
 		document.getElementById("date").value=String(dt.getFullYear())+"-"+String((dt.getMonth())+1)+"-"+String(dt.getDate());
-		if("{{ auth }}"!="admin"){
+		if("{{ auth }}"=="admin" || "{{ auth }}"=="guard" ){
+			document.getElementById("generate_notice").style.display="block";	
+		}
+		else{	
 			document.getElementById("generate_notice").style.display="none";
 			document.getElementById("edit_button").style.display="none";
 			document.getElementById("delete_button").style.display="none";
-			
-		}
-		else{
-			document.getElementById("generate_notice").style.display="block";	
 		}
 
 		var issuer = ("{{ issuer }}").replace("[","").replace("]","").split(",");

@@ -234,13 +234,13 @@
 		<a href="../../{{ user }}/{{ auth }}/calander">Calender</a>
 		<a href="../../{{ user }}/{{ auth }}/notice_board" id="notice">Notices</a>
 		<a href="../../{{ user }}/{{ auth }}/message">Messages</a>
-		<span id="admin_panel">
+		<span id="admin_guard_panel">
 			<a href="">Sensor</a>
 			<a href="../../{{ user }}/{{ auth }}/camera">Camera</a>
+		<span id="admin_panel">
 			<a href="../../{{ user }}/{{ auth }}/requested_events" id="req">Requests</a>
-
-			
-		<span>
+		</span>
+		</span>
 	</div>
 
 	<div id="main">
@@ -254,11 +254,17 @@
 
 		function admin_panel(){
 			var x = document.getElementById("admin_panel");
+			var y = document.getElementById("admin_guard_panel");
 			if("{{ auth }}" == "admin"){
 				x.style.display = "block";
+				y.style.display = "block";
+			}
+			else if("{{ auth }}" == "guard"){
+				y.style.display="block";
+				x.style.display="none";
 			}
 			else{
-				x.style.display = "none";
+				y.style.display = "none";
 			}
 
 		}
