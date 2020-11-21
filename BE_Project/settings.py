@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'requested_events',
     'login_page',
     'new_users',
+    'notice_board',
 ]
 
 MIDDLEWARE = [

@@ -3,7 +3,7 @@
 	<div style="margin: auto;text-align: center;font-size: 40px;margin-top: 20px;" id="log_d">
 		Pending Event Details
 	</div>
-	<table id="req_Events_log" style="margin-top: 20px; padding: 0px 60px 20px 60px;width: 100%;">
+	<table id="req_Events_log" style="margin-top: 20px; padding: 0px 60px 20px 60px;width: 100%;overflow-y: scroll;overflow-x: hidden;">
 		<tr style="font-size: 40px;text-align: center;">
 			<td style="border-radius: 20px;background-color: red;color: white">Date</td>
 			<td style="border-radius: 20px;background-color: red;color: white">Organizer</td>
@@ -29,7 +29,7 @@
 	<div style="margin: auto;text-align: center;font-size: 40px;margin-top: 20px;" id="user_log_d">
 		Pending User Details Verification
 	</div>
-	<table id="req_user_log" style="margin-top: 20px; padding: 0px 60px 20px 60px;width: 100%;">
+	<table id="req_user_log" style="margin-top: 20px; padding: 0px 60px 20px 60px;width: 100%;overflow-y: scroll;overflow-x: hidden;">
 		<tr style="font-size: 40px;text-align: center;">
 			<td style="border-radius: 20px;background-color: red;color: white">Username</td>
 			<td style="border-radius: 20px;background-color: red;color: white">Password</td>
@@ -151,10 +151,10 @@
 			}
 			if(count<1){
 				table.remove();
-				document.getElementById("log_d").innerHTML = "No Pending Events Left To Accept";
+				document.getElementById("user_log_d").innerHTML = "No Pending Login Requests Left To Accept";
 			}
 			else{
-				document.getElementById("req").style="background-color:red;color:white;border-radius:20px";
+				document.getElementById("notice").style="background-color:red;color:white;border-radius:20px";
 			}
 			
 		}

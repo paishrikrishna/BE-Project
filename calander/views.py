@@ -14,12 +14,10 @@ x = str(datetime.datetime.now()).split("-")
 
 def cal_index_page(request,user,auth):
 	obj = list(req_events.objects.all())
-	date_count = 0
-	for i in obj:
-		date_count += 1	
+	date_count = len(obj)
+
 	obj = list(new_login_model.objects.all())
-	for i in obj:
-		date_count += 1	
+	date_count += len(obj)
 
 	request.session.flush()
 	obj = list(events.objects.all())

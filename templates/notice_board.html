@@ -1,0 +1,120 @@
+{% extends "homepage.html" %}
+{% block content %}
+	<div id="generate_notice">
+		<form method="POST" action="">{% csrf_token %}
+			<input type="text" id="issued_by" name="issued_by" value="{{ user }}">
+			<input type="text" id="date" name="date" placeholder="date" value="">
+			<input type="text" id="Subject" name="Subject" placeholder="Subject">
+			<p><textarea id="content" name="content" placeholder="content" style="width: 700px;height: 200px;"></textarea></p>
+			<input type="submit" name="action" value="Publish Notice">
+		</form>
+	</div>
+	<div id="event_de" style="margin: auto;font-size: 40px;text-align: center;">
+		Notices
+	</div>
+	<table id="notice_board" style="margin-top: 20px; padding: 0px 60px 20px 60px;width: 100%;font-size: 30px;text-align: center;">
+		<tr>
+			<td style="border-radius: 20px;background-color: red;color: white">Published on</td>
+			<td style="border-radius: 20px;background-color: red;color: white">Subject</td>
+			<td style="border-radius: 20px;background-color: red;color: white">Issued By</td>
+		</tr>
+	</table>
+	<div class="popup" id="popup">
+	    <span class="helper"></span>
+	    <div style="text-align: center;font-size: 20px;">
+	        <div class="popupCloseButton">&times;</div>
+	        User Details
+	        <form id="pop_content" method="POST" action="">{% csrf_token %}
+					<p>Published on <input id = "published on" type="text" name="published on" value="" readonly="1"></p>
+					<p>Subject <input type="text" id="subject" name="subject" ></p>
+					<p>Issued By <input type="text" id="issuer" name="issuer" value="" readonly="1"></p>
+					<p>Matter <textarea type="text" id="matter" name="matter" value=""  style="width: 500px;height: 500px;"></textarea></p>
+					<p> <input type="text" id="user_row" name="user_row" value="" style="display: none;"></p>
+					<p><input type="Submit" name="action" id="edit_button" value="Done Editing"><input type="Submit" id="delete_button" name="action" value="Delete Notice"></p>
+			</form>
+	    </div>
+	</div>
+	{% autoescape off %}
+	<script>
+		var dt = new Date();
+		document.getElementById("date").value=String(dt.getFullYear())+"-"+String((dt.getMonth())+1)+"-"+String(dt.getDate());
+		if("{{ auth }}"!="admin"){
+			document.getElementById("generate_notice").style.display="none";
+			document.getElementById("edit_button").style.display="none";
+			document.getElementById("delete_button").style.display="none";
+			
+		}
+		else{
+			document.getElementById("generate_notice").style.display="block";	
+		}
+
+		var issuer = ("{{ issuer }}").replace("[","").replace("]","").split(",");
+		var dates = ("{{ date }}").replace("[","").replace("]","").split(",");
+		var content = ("{{ content }}").replace("[","").replace("]","").split(",");
+		var ids = ("{{ ID }}").replace("[","").replace("]","").split(",");
+		var subject = ("{{ subject }}").replace("[","").replace("]","").split(",");
+		
+		notice_board(dates);
+
+		var log_buts = (document.getElementsByClassName("notice_details"));
+		console.log(issuer);
+		document.getElementsByClassName("popupCloseButton")[0].onclick = function() {document.getElementsByClassName("popup")[0].style.display="none";};
+		notice_popup(log_buts);
+
+		function notice_board(dates){
+			var count = 0;
+			var table = document.getElementById("notice_board");
+			for(var z=0;z<issuer.length;z++){
+				if(issuer[z].replace(" ","").replace("'","").replace("'","") != ""){
+					var row = table.insertRow(count+1);
+					row.className="notice_details";
+					row.id = "notice_details_holder";
+					var dates = dates[z].replace(" ","").replace("'","").replace("'","");
+					var cell = row.insertCell(0);
+					cell.id = "Event_Date";
+					var div = document.createElement("div");
+					var textnode = document.createTextNode(dates);
+					div.append(textnode);              
+					cell.append(div);    
+					var organizer = subject[z].replace("'","").replace("'","");
+					var cell = row.insertCell(1);
+					cell.id = "Event_Organizer";
+					var div = document.createElement("div");
+					var textnode = document.createTextNode(organizer);
+					div.append(textnode);              
+					cell.append(div); 
+					var agenda = issuer[z].replace("'","").replace("'","");
+					var cell = row.insertCell(2);
+					cell.id = "Event_Agenda";
+					var div = document.createElement("div");
+					var textnode = document.createTextNode(agenda);
+					div.append(textnode);              
+					cell.append(div); 
+					count++;
+				}
+			}
+			if(count<1){
+				table.remove();
+				document.getElementById("event_de").innerHTML = "No Notice";
+			}
+			
+		}
+
+
+		function notice_popup(log_buts){
+			for(var z=0;z<log_buts.length;z++){
+				log_buts[z].onclick = function(){
+					
+					document.getElementsByClassName("popup")[0].style.display = "block";
+					document.getElementById("published on").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
+					document.getElementById("subject").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
+					document.getElementById("issuer").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
+					document.getElementById("matter").value = content[(this.rowIndex)-1].replace("'","").replace("'","");
+					document.getElementById("user_row").value = ids[(this.rowIndex)-1];
+				}
+			}
+		}
+
+	</script>
+	{% endautoescape %}
+{% endblock %}
