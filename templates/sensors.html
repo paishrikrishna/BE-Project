@@ -1,11 +1,85 @@
 {% extends "homepage.html" %}
 {% block content %}
+	<div id="Automation" style="margin-top: 4%; font-size: 30px;width: 100%;">
+		Automation    
+		<label class="switch" style="margin-left: 1%;">
+		  <input type="checkbox" id="checkbox">
+		  <span class="slider round"></span>
+		</label>
+		<button style="float: right;" onclick="alert('Data Exported')" id="export_data">Export Data</button>
+	</div>
+	<div style="display: flex; margin-top: 4%;margin-left: 10%;">
+		<div class="c100 p25 big" id="water_level">
+			<span id="water_level_label">25%</span>
+			<div class="slice">
+				<div class="bar"></div>
+				<div class="fill"></div>
+			</div>
+		</div>
+		<div style="margin-left: 40px;margin-top: 4%; font-size: 79px;">
+		water level in tank
+		</div>		
+	</div>
+	<div id="pumps" style="margin-top: 2%;">
+		<font size="5">Pump Status</font> 
+		<label class="switch" style="margin-left: 1%;">
+		  <input type="checkbox" id="pump">
+		  <span class="slider"></span>
+		</label>
+	</div>
+	<div id="floor_settings" style="margin-top:4%;">
+		<font size="8">Select Floor Number</font>
+		<input type="number" name="floor_number" id="floor_number" style="margin-left:4%;height: 40px;" min = 0 max = 5>
+		<div id="lights" style="margin-top: 2%;">
+			<font size="5">Floor Lights</font> 
+			<label class="switch" style="margin-left: 1%;">
+			  <input type="checkbox" id="light">
+			  <span class="slider"></span>
+			</label>
+		</div>
+		<div id="Floor CCTV" style="margin-top: 2%;">
+			<font size="5">Floor CCTV Feed</font> 
+			<br>
+			 <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1" height="500" width="800" title="Iframe Example"></iframe> 
+		</div>
+	</div>
 	
-
-
 	{% autoescape off %}
 	<script>
-		
+		var level = 95;
+		document.getElementById("floor_number").value=0;
+		document.getElementById("water_level").className = "c100 p"+level.toString()+" big";
+		document.getElementById("water_level_label").innerHTML = level.toString()+"%";
+		if(document.getElementById("checkbox").checked == true){
+				alert("System on Automation all switches are locked to avoid manual control");
+				document.getElementById("pump").disabled=true;
+				document.getElementById("light").disabled=true;
+			}
+			else if(document.getElementById("checkbox").checked == false){
+				alert("System on Manual control All Switches Unlocked");
+				document.getElementById("pump").disabled=false;
+				document.getElementById("light").disabled=false;
+			}
+
+		if("{{ auth }}" != "admin"){
+			document.getElementById("checkbox").disabled=true;
+			document.getElementById("export_data").disabled=true;
+		}
+
+		document.getElementById("checkbox").onclick = function(){
+			if(document.getElementById("checkbox").checked == true){
+				alert("System on Automation all switches are locked to avoid manual control");
+				document.getElementById("pump").disabled=true;
+				document.getElementById("light").disabled=true;
+			}
+			else if(document.getElementById("checkbox").checked == false){
+				alert("System on Manual control All Switches Unlocked");
+				document.getElementById("pump").disabled=false;
+				document.getElementById("light").disabled=false;
+			}
+		}
+			
 	</script>
 	{% endautoescape %}
+		
 {% endblock %}

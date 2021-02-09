@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'new_users',
     'notice_board',
     'messaging_module',
+    'sensors',
 ]
 
 MIDDLEWARE = [
