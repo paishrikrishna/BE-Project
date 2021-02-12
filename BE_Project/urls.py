@@ -23,7 +23,7 @@ from login_page.views import login_index_page
 from new_users.views import new_user_index_page
 from notice_board.views import notice_index_page
 from messaging_module.views import message_index_page
-from sensors.views import sensors_index_page
+from sensors.views import sensors_index_page,read_water_tank_status,switch_status,water_level,device_initial_setup,read_light_switch_status
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,4 +36,10 @@ urlpatterns = [
     path('<str:user>/<str:auth>/message',message_index_page),
     path('<str:user>/<str:auth>/sensors',sensors_index_page),
     path('new_user',new_user_index_page),
+    path('read_water_tank_status/',read_water_tank_status),
+    path('switch_status/',switch_status),
+    path('water_level/',water_level),
+    path('device_initial_setup/',device_initial_setup),
+    path('read_light_switch_status/',read_light_switch_status)
+
 ]

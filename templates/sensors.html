@@ -1,7 +1,7 @@
 {% extends "homepage.html" %}
 {% block content %}
 	<div id="Automation" style="margin-top: 4%; font-size: 30px;width: 100%;">
-		Automation    
+		Water Automation    
 		<label class="switch" style="margin-left: 1%;">
 		  <input type="checkbox" id="checkbox">
 		  <span class="slider round"></span>
@@ -27,6 +27,24 @@
 		  <span class="slider"></span>
 		</label>
 	</div>
+	<br>
+	<hr>
+	<br>
+	<div>
+		<font size="8">Schedule Lights</font>
+		<input type="time" name="light_schedule" id="light_schedule" style="margin-left:4%;height: 40px;" min = 0 max = 5>
+		<label class="switch" style="margin-left: 1%;">
+		  <input type="checkbox" id="Schedule_lights_action">
+		  <span class="slider"></span>
+		</label>
+	</div>
+	<div id="lights" style="margin-top: 2%;">
+			<font size="8">All Lights</font> 
+			<label class="switch" style="margin-left: 1%;">
+			  <input type="checkbox" id="all_lights">
+			  <span class="slider"></span>
+			</label>
+		</div>
 	<div id="floor_settings" style="margin-top:4%;">
 		<font size="8">Select Floor Number</font>
 		<input type="number" name="floor_number" id="floor_number" style="margin-left:4%;height: 40px;" min = 0 max = 5>
@@ -46,39 +64,118 @@
 	
 	{% autoescape off %}
 	<script>
-		var level = 95;
 		document.getElementById("floor_number").value=0;
-		document.getElementById("water_level").className = "c100 p"+level.toString()+" big";
-		document.getElementById("water_level_label").innerHTML = level.toString()+"%";
-		if(document.getElementById("checkbox").checked == true){
-				alert("System on Automation all switches are locked to avoid manual control");
-				document.getElementById("pump").disabled=true;
-				document.getElementById("light").disabled=true;
-			}
-			else if(document.getElementById("checkbox").checked == false){
-				alert("System on Manual control All Switches Unlocked");
-				document.getElementById("pump").disabled=false;
-				document.getElementById("light").disabled=false;
-			}
-
-		if("{{ auth }}" != "admin"){
-			document.getElementById("checkbox").disabled=true;
-			document.getElementById("export_data").disabled=true;
-		}
+		authorization_check();
+		read_water_tank_status();		
+		read_water_tank_level();
+		// switches onclick events
 
 		document.getElementById("checkbox").onclick = function(){
 			if(document.getElementById("checkbox").checked == true){
-				alert("System on Automation all switches are locked to avoid manual control");
+				post_switch_status("automation_switch","true");
+				
 				document.getElementById("pump").disabled=true;
-				document.getElementById("light").disabled=true;
+				//document.getElementById("light").disabled=true;
+				alert("System on Automation all switches are locked to avoid manual control");
 			}
 			else if(document.getElementById("checkbox").checked == false){
-				alert("System on Manual control All Switches Unlocked");
+				post_switch_status("automation_switch","false");
+				
 				document.getElementById("pump").disabled=false;
-				document.getElementById("light").disabled=false;
+				//document.getElementById("light").disabled=false;
+				alert("System on Manual control All Switches Unlocked");
+				
 			}
 		}
-			
+
+		document.getElementById("pump").onclick = function(){
+			if(document.getElementById("pump").checked == true){
+				post_switch_status("pump_switch","true");
+			}
+			else if(document.getElementById("pump").checked == false){
+				post_switch_status("pump_switch","false");
+			}
+		}
+
+		document.getElementById('Schedule_lights_action').onclick = function(){
+			console.log(document.getElementById('light_schedule').value);
+		}
+		
+	
+
+		function read_water_tank_level(){
+			let xhr = new XMLHttpRequest();
+			xhr.open('get', 'http://192.168.43.55:8000/read_water_tank_status/');
+			xhr.send();
+
+			xhr.onload = function() {
+			    //console.log(JSON.parse(xhr.response)['pump_status']);
+			  	var level = JSON.parse(xhr.response)['water_level'];
+				document.getElementById("water_level").className = "c100 p"+level+" big";
+				document.getElementById("water_level_label").innerHTML = level+"%";
+			};
+			setTimeout(read_water_tank_level,10000);
+		}
+
+		function read_water_tank_status(){
+			let xhr = new XMLHttpRequest();
+			xhr.open('get', 'http://192.168.43.55:8000/read_water_tank_status/');
+			xhr.send();
+
+			xhr.onload = function() {
+			    //console.log(JSON.parse(xhr.response)['pump_status']);
+				//switches				
+				if(JSON.parse(xhr.response)['pump_status']=="true"){
+					document.getElementById("pump").checked=true;
+					post_switch_status("pump_switch","true");
+				}
+				else{
+					document.getElementById("pump").checked=false;
+					post_switch_status("pump_switch","false");
+					
+				}
+				if(JSON.parse(xhr.response)['automation_status']=="true"){
+					document.getElementById("checkbox").checked=true;
+					post_switch_status("automation_switch","true");
+					document.getElementById("pump").disabled=true;
+					alert("Water System is now on Automation control");
+					
+					//document.getElementById("light").disabled=true;
+
+					
+				}
+				else{
+					document.getElementById("checkbox").checked=false;
+					post_switch_status("automation_switch","false");
+					document.getElementById("pump").disabled=false;
+					alert("Water System is now on Manual control ");
+					
+					//document.getElementById("light").disabled=false;
+					
+				}
+			};
+		}
+
+		function authorization_check(){
+			if("{{ auth }}" != "admin"){
+				document.getElementById("checkbox").disabled=true;
+				document.getElementById("export_data").disabled=true;
+			}
+			else{
+				document.getElementById("checkbox").disabled=false;
+				document.getElementById("export_data").disabled=false;	
+			}
+	
+		}
+
+		function post_switch_status(switch_name,status){
+			let xhr = new XMLHttpRequest();
+			xhr.open('get', 'http://192.168.43.55:8000/switch_status?switch_name='+switch_name+'&status='+status);
+			xhr.send();
+		}
+
+
+
 	</script>
 	{% endautoescape %}
 		
