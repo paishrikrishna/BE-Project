@@ -42,6 +42,8 @@ def read_water_tank_status(request):
 def switch_status(request):
 	global water_tank_switches
 	water_tank_switches[request.GET['switch_name']]=request.GET['status']
+	print(water_tank_switches)
+	return JsonResponse(water_tank_switches)
 
 	
 def water_level(request):
