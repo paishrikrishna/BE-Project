@@ -32,7 +32,8 @@
 	<br>
 	<div>
 		<font size="8">Schedule Lights</font>
-		<input type="time" name="light_schedule" id="light_schedule" style="margin-left:4%;height: 40px;" min = 0 max = 5>
+		<br>
+		From <input type="time" name="from_light_schedule" id="from_light_schedule" style="margin-left:0%;height: 40px;" min = 0 max = 5>  To <input type="time" name="to_light_schedule" id="to_light_schedule" style="margin-left:0%;height: 40px;" min = 0 max = 5>
 		<label class="switch" style="margin-left: 1%;">
 		  <input type="checkbox" id="Schedule_lights_action">
 		  <span class="slider"></span>
@@ -66,7 +67,8 @@
 	<script>
 		document.getElementById("floor_number").value=0;
 		authorization_check();
-		read_water_tank_status();		
+		read_water_tank_status();
+		read_light_status();		
 		read_water_tank_level();
 		// switches onclick events
 
@@ -174,6 +176,31 @@
 			xhr.send();
 		}
 
+		function read_light_status(){
+			let xhr = new XMLHttpRequest();
+			xhr.open('get', 'http://192.168.43.55:8000/read_light_switch_status/');
+			xhr.send();
+
+			xhr.onload = function() {
+			    //console.log(JSON.parse(xhr.response)['pump_status']);
+				//switches				
+				document.getElementById("from_light_schedule").value=JSON.parse(xhr.response)['scheduled_time_from'];
+				document.getElementById("to_light_schedule").value=JSON.parse(xhr.response)['scheduled_time_to'];
+				
+				if(JSON.parse(xhr.response)['scheduled_lights']=="true"){
+					document.getElementById("Schedule_lights_action").checked=true;
+				}
+				else{
+					document.getElementById("Schedule_lights_action").checked=false;
+				}
+				if(JSON.parse(xhr.response)['all_lights']=="true"){
+					document.getElementById("all_lights").checked=true;
+				}
+				else{
+					document.getElementById("all_lights").checked=false;
+				}
+			};
+		}
 
 
 	</script>
