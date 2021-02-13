@@ -7,6 +7,19 @@ from new_users.models import new_login_model
 
 from .form import water_tank_form,lights_form
 from .models import water_tank,lights
+import datetime
+
+now = datetime.datetime.utcnow()+datetime.timedelta(hours=5)+datetime.timedelta(minutes=30) # current date and time
+
+year = now.strftime("%Y")
+
+month = now.strftime("%m")
+
+day = now.strftime("%d")
+
+time = now.strftime("%H:%M:%S")
+
+date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
 
 water_tank_switches = {
 	"automation_switch":"false",
@@ -92,6 +105,8 @@ def read_light_switch_status(request):
 def light_switch_status(request):
 	global lights_status
 	lights_status[request.GET['switch_name']]=request.GET['status']
+	lights_status["scheduled_time_from"]=request.GET['from']
+	lights_status["scheduled_time_to"]=request.GET['to']
 	print(lights_status)
 	return JsonResponse(lights_status)
 
@@ -144,3 +159,14 @@ def read_floor_light_status(request):
 		if( str(obj[-i].floor_no) == str(request.GET['floor_number'])):
 			print({"status":str(obj[-i].floor_lights)})
 			return JsonResponse({"status":str(obj[-i].floor_lights)})	
+
+def floor_and_light_status(request):
+	global lights_status
+	lights_status["floor_no"]= request.GET['floor_no']
+	lights_status["floor_lights"]= request.GET['floor_lights']
+	return JsonResponse({"status":"true"})
+
+def date_and_time(request):
+	now_time = datetime.datetime.utcnow()+datetime.timedelta(hours=5)+datetime.timedelta(minutes=30)
+	time = now_time.strftime("%H:%M:%S")
+	return JsonResponse({"time":time})

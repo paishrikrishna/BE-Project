@@ -23,7 +23,7 @@ from login_page.views import login_index_page
 from new_users.views import new_user_index_page
 from notice_board.views import notice_index_page
 from messaging_module.views import message_index_page
-from sensors.views import sensors_index_page,read_water_tank_status,switch_status,water_level,device_initial_setup,read_light_switch_status,light_switch_status,lights_operation,all_lights_operation,read_floor_light_status
+from sensors.views import sensors_index_page,read_water_tank_status,switch_status,water_level,device_initial_setup,read_light_switch_status,light_switch_status,lights_operation,all_lights_operation,read_floor_light_status,floor_and_light_status,date_and_time
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,6 +44,7 @@ urlpatterns = [
     path('light_switch_status/',light_switch_status),
     path('lights_operation/',lights_operation),
     path('all_lights_operation/',all_lights_operation),
-    path('read_floor_light_status/',read_floor_light_status)
-
+    path('read_floor_light_status/',read_floor_light_status),
+    path('floor_and_light_status/',floor_and_light_status),
+    path('date_and_time/',date_and_time)
 ]
