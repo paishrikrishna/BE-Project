@@ -68,7 +68,7 @@
 		document.getElementById("floor_number").value=0;
 		authorization_check();
 		read_water_tank_status();
-		read_light_status();		
+		read_light_status();
 		read_water_tank_level();
 		// switches onclick events
 
@@ -100,7 +100,24 @@
 		}
 
 		document.getElementById('Schedule_lights_action').onclick = function(){
-			console.log(document.getElementById('light_schedule').value);
+			//console.log(document.getElementById('light_schedule').value);
+			if(document.getElementById("Schedule_lights_action").checked == true){
+				post_light_switch_status("scheduled_lights","true");
+			}
+			else if(document.getElementById("Schedule_lights_action").checked == false){
+				post_light_switch_status("scheduled_lights","false");
+			}
+		}
+		document.getElementById('all_lights').onclick = function(){
+			//console.log(document.getElementById('light_schedule').value);
+			if(document.getElementById("all_lights").checked == true){
+				post_light_switch_status("all_lights","true");
+				all_lights_operation();
+			}
+			else if(document.getElementById("all_lights").checked == false){
+				post_light_switch_status("all_lights","false");
+				all_lights_operation();
+			}
 		}
 		
 	
@@ -116,6 +133,7 @@
 				document.getElementById("water_level").className = "c100 p"+level+" big";
 				document.getElementById("water_level_label").innerHTML = level+"%";
 			};
+			read_floor_light_status(document.getElementById("floor_number").value.toString());
 			setTimeout(read_water_tank_level,10000);
 		}
 
@@ -199,6 +217,34 @@
 				else{
 					document.getElementById("all_lights").checked=false;
 				}
+			};
+		}
+
+		function post_light_switch_status(switch_name,status){
+			let xhr = new XMLHttpRequest();
+			xhr.open('get', 'http://192.168.43.55:8000/light_switch_status?switch_name='+switch_name+'&status='+status);
+			xhr.send();
+		}
+
+		function all_lights_operation(){
+			let xhr = new XMLHttpRequest();
+			xhr.open('get', 'http://192.168.43.55:8000/all_lights_operation/');
+			xhr.send();
+		}
+
+		function read_floor_light_status(floor_number){
+			let xhr = new XMLHttpRequest();
+			xhr.open('get', 'http://192.168.43.55:8000/read_floor_light_status?floor_number='+floor_number);
+			xhr.send();
+			xhr.onload = function() {
+				//console.log(JSON.parse(xhr.response)['status']);
+				if(JSON.parse(xhr.response)['status']=="true"){
+					document.getElementById("light").checked=true;
+				}
+				else{
+					document.getElementById("light").checked=false;
+				}
+				
 			};
 		}
 

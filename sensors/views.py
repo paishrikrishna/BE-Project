@@ -66,6 +66,16 @@ def device_initial_setup(request):
 	int_obj = list(water_tank.objects.all())
 	water_tank_switches["automation_switch"]=int_obj[-1].automation_status
 	water_tank_switches["pump_switch"]=int_obj[-1].pump_status
+
+	obj = list(lights.objects.all())
+	global lights_status
+	lights_status["scheduled_lights"] = obj[-1].scheduled_lights
+	lights_status["floor_no"] = obj[-1].floor_no
+	lights_status["floor_lights"] = obj[-1].floor_lights
+	lights_status["scheduled_time_from"]=obj[-1].scheduled_time_from
+	lights_status["scheduled_time_to"]=obj[-1].scheduled_time_to
+	lights_status["all_lights"]=obj[-1].all_lights
+
 	return JsonResponse({"status":"sucess"})
 
 def read_light_switch_status(request):
@@ -82,4 +92,55 @@ def read_light_switch_status(request):
 def light_switch_status(request):
 	global lights_status
 	lights_status[request.GET['switch_name']]=request.GET['status']
+	print(lights_status)
+	return JsonResponse(lights_status)
 
+
+def lights_operation(request):
+	#print(water_tank_switches)
+
+	try:
+		lights_form().save()
+	except:
+		obj = list(lights.objects.all())
+		obj[-1].scheduled_lights= lights_status["scheduled_lights"]
+		obj[-1].floor_no= lights_status["floor_no"]
+		obj[-1].floor_lights=lights_status["floor_lights"]
+		obj[-1].scheduled_time_from=lights_status["scheduled_time_from"]
+		obj[-1].scheduled_time_to=lights_status["scheduled_time_to"]
+		obj[-1].all_lights=	lights_status["all_lights"]
+		obj[-1].save()
+
+	return JsonResponse(lights_status)
+
+def all_lights_operation(request):
+	for i in range(0,6):
+		try:
+			lights_form().save()
+		except:
+			obj = list(lights.objects.all())
+			obj[-1].scheduled_lights= lights_status["scheduled_lights"]
+			obj[-1].floor_no= str(i)
+			obj[-1].floor_lights=lights_status["all_lights"]
+			obj[-1].scheduled_time_from=lights_status["scheduled_time_from"]
+			obj[-1].scheduled_time_to=lights_status["scheduled_time_to"]
+			obj[-1].all_lights=	lights_status["all_lights"]
+			obj[-1].save()
+
+	obj = list(lights.objects.all())
+	global lights_status
+	lights_status["scheduled_lights"] = obj[-1].scheduled_lights
+	lights_status["floor_no"] = obj[-1].floor_no
+	lights_status["floor_lights"] = obj[-1].floor_lights
+	lights_status["scheduled_time_from"]=obj[-1].scheduled_time_from
+	lights_status["scheduled_time_to"]=obj[-1].scheduled_time_to
+	lights_status["all_lights"]=obj[-1].all_lights
+
+	return JsonResponse(lights_status)
+
+def read_floor_light_status(request):
+	obj = list(lights.objects.all())
+	for i in range(1,len(obj)+1):
+		if( str(obj[-i].floor_no) == str(request.GET['floor_number'])):
+			print({"status":str(obj[-i].floor_lights)})
+			return JsonResponse({"status":str(obj[-i].floor_lights)})	
