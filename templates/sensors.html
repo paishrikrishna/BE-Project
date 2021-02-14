@@ -112,11 +112,11 @@
 		document.getElementById('all_lights').onclick = function(){
 			//console.log(document.getElementById('light_schedule').value);
 			if(document.getElementById("all_lights").checked == true){
-				post_light_switch_status("all_lights","true");
+				post_light_switch_status("all_lights","true",document.getElementById("from_light_schedule").value.toString(),document.getElementById("to_light_schedule").value.toString());
 				all_lights_operation();
 			}
 			else if(document.getElementById("all_lights").checked == false){
-				post_light_switch_status("all_lights","false");
+				post_light_switch_status("all_lights","false",document.getElementById("from_light_schedule").value.toString(),document.getElementById("to_light_schedule").value.toString());
 				all_lights_operation();
 			}
 		}

@@ -33,6 +33,16 @@ lights_status={
 	"scheduled_time_to":"",
 	"all_lights":"false"	
 	}
+
+it_obj = list(lights.objects.all())
+global lights_status
+lights_status["scheduled_lights"] = it_obj[-1].scheduled_lights
+lights_status["floor_no"] = it_obj[-1].floor_no
+lights_status["floor_lights"] = it_obj[-1].floor_lights
+lights_status["scheduled_time_from"]=it_obj[-1].scheduled_time_from
+lights_status["scheduled_time_to"]=it_obj[-1].scheduled_time_to
+lights_status["all_lights"]=it_obj[-1].all_lights
+
 def sensors_index_page(request,user,auth):
 	obj = list(req_events.objects.all())
 	date_count = len(obj)
@@ -49,7 +59,6 @@ def read_water_tank_status(request):
 	"pump_status":obj[-1].pump_status,
 	"automation_status":obj[-1].automation_status
 	}
-	
 	return JsonResponse(tank_status)
 
 def switch_status(request):
@@ -80,15 +89,14 @@ def device_initial_setup(request):
 	water_tank_switches["automation_switch"]=int_obj[-1].automation_status
 	water_tank_switches["pump_switch"]=int_obj[-1].pump_status
 
-	obj = list(lights.objects.all())
+	it_obj = list(lights.objects.all())
 	global lights_status
-	lights_status["scheduled_lights"] = obj[-1].scheduled_lights
-	lights_status["floor_no"] = obj[-1].floor_no
-	lights_status["floor_lights"] = obj[-1].floor_lights
-	lights_status["scheduled_time_from"]=obj[-1].scheduled_time_from
-	lights_status["scheduled_time_to"]=obj[-1].scheduled_time_to
-	lights_status["all_lights"]=obj[-1].all_lights
-
+	lights_status["scheduled_lights"] = it_obj[-1].scheduled_lights
+	lights_status["floor_no"] = it_obj[-1].floor_no
+	lights_status["floor_lights"] = it_obj[-1].floor_lights
+	lights_status["scheduled_time_from"]=it_obj[-1].scheduled_time_from
+	lights_status["scheduled_time_to"]=it_obj[-1].scheduled_time_to
+	lights_status["all_lights"]=it_obj[-1].all_lights
 	return JsonResponse({"status":"sucess"})
 
 def read_light_switch_status(request):
@@ -170,3 +178,37 @@ def date_and_time(request):
 	now_time = datetime.datetime.utcnow()+datetime.timedelta(hours=5)+datetime.timedelta(minutes=30)
 	time = now_time.strftime("%H:%M:%S")
 	return JsonResponse({"time":time})
+
+def lights_statu_s(request):
+	lights_button = {}
+	for i in range(0,6):
+		obj = list(lights.objects.filter(floor_no=str(i)))
+		lights_button[str(i)] = obj[-1].floor_lights
+	return JsonResponse(lights_button)
+
+def turn_hrd(request):
+	global lights_status
+	lights_status["all_lights"] = request.GET['status']
+	for i in range(0,6):
+		try:
+			lights_form().save()
+		except:
+			obj = list(lights.objects.all())
+			obj[-1].scheduled_lights= lights_status["scheduled_lights"]
+			obj[-1].floor_no= str(i)
+			obj[-1].floor_lights=lights_status["all_lights"]
+			obj[-1].scheduled_time_from=lights_status["scheduled_time_from"]
+			obj[-1].scheduled_time_to=lights_status["scheduled_time_to"]
+			obj[-1].all_lights=	lights_status["all_lights"]
+			obj[-1].save()
+
+	obj = list(lights.objects.all())
+	global lights_status
+	lights_status["scheduled_lights"] = obj[-1].scheduled_lights
+	lights_status["floor_no"] = obj[-1].floor_no
+	lights_status["floor_lights"] = obj[-1].floor_lights
+	lights_status["scheduled_time_from"]=obj[-1].scheduled_time_from
+	lights_status["scheduled_time_to"]=obj[-1].scheduled_time_to
+	lights_status["all_lights"]=obj[-1].all_lights
+
+	return JsonResponse(lights_status)
