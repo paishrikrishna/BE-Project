@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 # Create your views here.
 from requested_events.models import req_events
 
@@ -8,6 +8,9 @@ from new_users.models import new_login_model
 from .form import water_tank_form,lights_form,water_tank_date_form,lights_date_form
 from .models import water_tank,lights,water_tank_date,lights_date
 import datetime
+import xlwt
+import datetime
+import pandas as pd
 
 now = datetime.datetime.utcnow()+datetime.timedelta(hours=5)+datetime.timedelta(minutes=30) # current date and time
 
@@ -251,3 +254,91 @@ def turn_hrd(request):
 	lights_status["all_lights"]=obj[-1].all_lights
 
 	return JsonResponse(lights_status)
+
+def export_data(request):
+
+	if request.GET['name']=="water":
+		# water level excel
+
+		date,water_level,pump_status,automation_status = [],[],[],[]
+		obj_tank = list(water_tank.objects.all())
+		obj_tank_date = list(water_tank_date.objects.all())
+		for i in range(1,len(obj_tank)+1):
+			date.append(obj_tank_date[-i].date)
+			water_level.append(obj_tank[-i].level)
+			pump_status.append(obj_tank[-i].pump_status)
+			automation_status.append(obj_tank[-i].automation_status)
+
+		response = HttpResponse(content_type='application/ms-excel')
+		response['Content-Disposition'] = 'attachment; filename="Water Tank.xls"'
+
+		wb = xlwt.Workbook(encoding='utf-8')
+		ws = wb.add_sheet('Users')
+
+		# Sheet header, first row
+
+		columns = ['Date and time', 'Water Level', 'Pump Status', 'Automation Status',]
+
+
+		rows = [date, water_level, pump_status, automation_status]
+
+		font_style = xlwt.XFStyle()
+		font_style.font.bold = True
+		
+		for j, col in enumerate(columns):
+			ws.write(0, j, col,font_style)
+		
+		for cols , data in enumerate(rows):
+			for row in range(1,len(data)+1):
+				ws.write(row,cols,data[row-1],xlwt.XFStyle())
+
+		wb.save(response)
+		return response
+
+	elif request.GET['name']=="lights":
+
+		#lights excel 
+
+		date,scheduled_lights,floor_no,floor_lights,scheduled_time_from,scheduled_time_to,all_lights = [],[],[],[],[],[],[]
+
+		obj_tank = list(lights.objects.all())
+		obj_tank_date = list(lights_date.objects.all())
+		for i in range(1,len(obj_tank)+1):
+			date.append(obj_tank_date[-1].date)
+			scheduled_lights.append(obj_tank[-1].scheduled_lights)
+			floor_no.append(obj_tank[-1].floor_no)
+			floor_lights.append(obj_tank[-1].floor_lights)
+			scheduled_time_from.append(obj_tank[-1].scheduled_time_from)
+			scheduled_time_to.append(obj_tank[-1].scheduled_time_to)
+			all_lights.append(obj_tank[-1].all_lights)
+
+		response_lights = HttpResponse(content_type='application/ms-excel')
+		response_lights['Content-Disposition'] = 'attachment; filename="Lights Status.xls"'
+
+		wb = xlwt.Workbook(encoding='utf-8')
+		ws = wb.add_sheet('Users')
+
+		# Sheet header, first row
+
+
+		font_style = xlwt.XFStyle()
+		font_style.font.bold = True
+
+		columns = ['Date and time', 'Scheduled Lights', 'Floor Number', 'Floor Lights','Scheduled From','Scheduled To','All Lights',]
+		rows =[date, scheduled_lights, floor_no, floor_lights,scheduled_time_from,scheduled_time_to,all_lights]
+
+		for j, col in enumerate(columns):
+			ws.write(0, j, col,font_style)
+
+		# Sheet body, remaining rows
+		font_style = xlwt.XFStyle()
+
+		for cols , data in enumerate(rows):
+			for row in range(1,len(data)+1):
+				ws.write(row,cols,data[row-1],xlwt.XFStyle())
+
+		wb.save(response_lights)
+		
+		return response_lights
+
+

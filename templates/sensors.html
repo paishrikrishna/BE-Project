@@ -6,7 +6,8 @@
 		  <input type="checkbox" id="checkbox">
 		  <span class="slider round"></span>
 		</label>
-		<button style="float: right;" onclick="alert('Data Exported')" id="export_data">Export Data</button>
+		<a href="http://192.168.43.55:8000/export_data?name=water" style="float: right;font-size: 20px;color: black;"  id="export_water_data">Export Water Tank Data</a>
+		<a href="http://192.168.43.55:8000/export_data?name=lights" style="float: right;font-size: 20px;color: black;"  id="export_lights_data">Export Lights Data</a>
 	</div>
 	<div style="display: flex; margin-top: 4%;margin-left: 10%;">
 		<div class="c100 p25 big" id="water_level">
@@ -129,6 +130,16 @@
 				floor_and_light_status(document.getElementById("floor_number").value.toString(),"false");
 			}
 		}
+		document.getElementById("export_lights_data").onclick = function(){
+			let xhr = new XMLHttpRequest();
+			xhr.open('get', 'http://192.168.43.55:8000/export_data?name=lights');
+			xhr.send();
+		}
+		document.getElementById("export_water_data").onclick = function(){
+			let xhr = new XMLHttpRequest();
+			xhr.open('get', 'http://192.168.43.55:8000/export_data?name=water');
+			xhr.send();
+		}
 		
 	
 
@@ -188,11 +199,11 @@
 		function authorization_check(){
 			if("{{ auth }}" != "admin"){
 				document.getElementById("checkbox").disabled=true;
-				document.getElementById("export_data").disabled=true;
+				document.getElementById("export_water_data").style.display="none";
+				document.getElementById("export_lights_data").style.display="none";
 			}
 			else{
-				document.getElementById("checkbox").disabled=false;
-				document.getElementById("export_data").disabled=false;	
+				document.getElementById("checkbox").disabled=false;	
 			}
 	
 		}
@@ -262,6 +273,8 @@
 			xhr.open('get', 'http://192.168.43.55:8000/floor_and_light_status?floor_no='+floor_number+'&floor_lights='+floor_status);
 			xhr.send();
 		}
+
+		
 
 
 	</script>
