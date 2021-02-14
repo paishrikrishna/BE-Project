@@ -1,5 +1,5 @@
 from django import forms
-from .models import water_tank,lights
+from .models import water_tank,lights,water_tank_date,lights_date
 
 class water_tank_form(forms.ModelForm):
 	class Meta:
@@ -21,4 +21,19 @@ class lights_form(forms.ModelForm):
 			'scheduled_time_to',
 			'all_lights'
 		}
+
+class water_tank_date_form(forms.ModelForm):
+	class Meta:
+		model = water_tank_date
+		fields={
+			'date'
+		}
+
+class lights_date_form(forms.ModelForm):
+	class Meta:
+		model = lights_date
+		fields={
+			'date'
+		}
+
 

@@ -5,8 +5,8 @@ from requested_events.models import req_events
 
 from new_users.models import new_login_model
 
-from .form import water_tank_form,lights_form
-from .models import water_tank,lights
+from .form import water_tank_form,lights_form,water_tank_date_form,lights_date_form
+from .models import water_tank,lights,water_tank_date,lights_date
 import datetime
 
 now = datetime.datetime.utcnow()+datetime.timedelta(hours=5)+datetime.timedelta(minutes=30) # current date and time
@@ -59,6 +59,7 @@ def read_water_tank_status(request):
 	"pump_status":obj[-1].pump_status,
 	"automation_status":obj[-1].automation_status
 	}
+	print(date_time)
 	return JsonResponse(tank_status)
 
 def switch_status(request):
@@ -70,7 +71,9 @@ def switch_status(request):
 	
 def water_level(request):
 	#print(water_tank_switches)
-
+	now = datetime.datetime.utcnow()+datetime.timedelta(hours=5)+datetime.timedelta(minutes=30)
+	date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+	
 	try:
 		water_tank_form().save()
 	except:
@@ -78,6 +81,15 @@ def water_level(request):
 		obj[-1].level = request.GET['water_level']
 		obj[-1].pump_status = water_tank_switches['pump_switch']
 		obj[-1].automation_status = water_tank_switches['automation_switch']
+		obj[-1].save()
+
+	try:
+		water_tank_date_form().save()
+	except:
+		now = datetime.datetime.utcnow()+datetime.timedelta(hours=5)+datetime.timedelta(minutes=30)
+		date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+		obj = list(water_tank_date.objects.all())
+		obj[-1].date = date_time
 		obj[-1].save()
 
 	return JsonResponse(water_tank_switches)
@@ -133,6 +145,16 @@ def lights_operation(request):
 		obj[-1].scheduled_time_to=lights_status["scheduled_time_to"]
 		obj[-1].all_lights=	lights_status["all_lights"]
 		obj[-1].save()
+	
+
+	try:
+		lights_date_form().save()
+	except:
+		now = datetime.datetime.utcnow()+datetime.timedelta(hours=5)+datetime.timedelta(minutes=30)
+		date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+		obj = list(lights_date.objects.all())
+		obj[-1].date = date_time
+		obj[-1].save()
 
 	return JsonResponse(lights_status)
 
@@ -148,6 +170,14 @@ def all_lights_operation(request):
 			obj[-1].scheduled_time_from=lights_status["scheduled_time_from"]
 			obj[-1].scheduled_time_to=lights_status["scheduled_time_to"]
 			obj[-1].all_lights=	lights_status["all_lights"]
+			obj[-1].save()
+		try:
+			lights_date_form().save()
+		except:
+			now = datetime.datetime.utcnow()+datetime.timedelta(hours=5)+datetime.timedelta(minutes=30)
+			date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+			obj = list(lights_date.objects.all())
+			obj[-1].date = date_time
 			obj[-1].save()
 
 	obj = list(lights.objects.all())
@@ -200,6 +230,15 @@ def turn_hrd(request):
 			obj[-1].scheduled_time_from=lights_status["scheduled_time_from"]
 			obj[-1].scheduled_time_to=lights_status["scheduled_time_to"]
 			obj[-1].all_lights=	lights_status["all_lights"]
+			obj[-1].save()
+
+		try:
+			lights_date_form().save()
+		except:
+			now = datetime.datetime.utcnow()+datetime.timedelta(hours=5)+datetime.timedelta(minutes=30)
+			date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+			obj = list(lights_date.objects.all())
+			obj[-1].date = date_time
 			obj[-1].save()
 
 	obj = list(lights.objects.all())
