@@ -38,12 +38,17 @@ def req_events_index_page(request,user,auth):
 				obj.username = request.POST['username']
 				obj.password = request.POST['password']
 				obj.auth = "member"
+				obj.link = request.POST['link']
+				obj.email = request.POST['email']
+				obj.wing = request.POST['wing']
+				obj.floor = request.POST['floor']
+				obj.flat = request.POST['flat']
 				obj.save()
 
-			obj = new_login_model.objects.get(id=int(request.POST['user_row']))
+			obj = new_login_model.objects.get(email=(request.POST['email']))
 			obj.delete()
 		elif request.POST['action']=="Delete User":
-			obj = new_login_model.objects.get(id=int(request.POST['user_row']))
+			obj = new_login_model.objects.get(email=(request.POST['email']))
 			obj.delete()
 
 	obj = list(req_events.objects.all())
@@ -55,10 +60,15 @@ def req_events_index_page(request,user,auth):
 		ID.append(i.id)	
 
 	obj = list(new_login_model.objects.all())
-	username,password ,user_ID= [],[],[]
+	username,password ,user_ID,floor,wing,link,pswd,ID= [],[],[],[],[],[],[],[]
 	for i in obj:
 		username.append(i.username)
-		password.append(i.password)
-		user_ID.append(i.id)
+		password.append(i.email)
+		user_ID.append(i.flat)
+		ID.append(i.id)
+		floor.append(i.floor)
+		wing.append(i.wing)
+		link.append(i.link)
+		pswd.append(i.password)
 
-	return render(request,"requested_events.html",{"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"username":username,"password":password,"user_ID":user_ID,"auth":auth})
+	return render(request,"requested_events.html",{"ID":ID,"floor":floor,"pswd":pswd,"wing":wing,"link":link,"organizer":organizer,"event_dates":date,"content":content,"ID":ID,"user":user,"username":username,"password":password,"user_ID":user_ID,"auth":auth})

@@ -6,3 +6,7 @@ class login_model(models.Model):
 	password = models.TextField(default='N/A')
 	auth = models.TextField(default='member')
 	link = models.TextField(default='n/a')
+	email = models.TextField(default='n/a')
+	wing = models.TextField(default='n/a')
+	floor = models.TextField(default='n/a')
+	flat = models.TextField(default='n/a')

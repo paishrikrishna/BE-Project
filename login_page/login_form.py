@@ -9,4 +9,9 @@ class login_form(forms.ModelForm):
 			'password',
 			'auth',
 			'link',
+			'email',
+			'wing',
+			'floor',
+			'flat',
+			
 		}

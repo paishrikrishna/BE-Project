@@ -32,8 +32,8 @@
 	<table id="req_user_log" style="margin-top: 20px; padding: 0px 60px 20px 60px;width: 100%;overflow-y: scroll;overflow-x: hidden;">
 		<tr style="font-size: 40px;text-align: center;">
 			<td style="border-radius: 20px;background-color: red;color: white">Username</td>
-			<td style="border-radius: 20px;background-color: red;color: white">Password</td>
-			<td style="border-radius: 20px;background-color: red;color: white">ID</td>
+			<td style="border-radius: 20px;background-color: red;color: white">Flat No</td>
+			<td style="border-radius: 20px;background-color: red;color: white">Floor</td>
 		</tr>
 	</table>
 	<div class="popup" id="popup">
@@ -43,9 +43,13 @@
 	        User Details
 	        <form id="pop_content" method="POST" action="">{% csrf_token %}
 					<p>Username <input id = "New_user" type="text" name="username" value="" readonly="1"></p>
-					<p>Password <input type="text" id="password" name="password" readonly="1"></p>
-					<p>User ID<input type="text" id="user_ID" name="user_ID" value="" readonly="1"></p>
+					<p>Flat No <input type="text" id="password" name="flat" readonly="1"></p>
+					<p>Floor<input type="text" id="user_ID" name="floor" value="" readonly="1"></p>
+					<p>Wing <input id = "wing" type="text" name="wing" value="" readonly="1"></p>
+					<p>Email ID <input type="text" id="email" name="email" readonly="1"></p>
+					<p>Link<input type="text" id="link" name="link" value="" readonly="1"></p>
 					<p> <input type="text" id="user_row" name="user_row" value="" style="display: none;"></p>
+					<p> <input type="text" id="user_pswd" name="password" value="" style="display: none;"></p>
 					<p><input type="Submit" name="action" value="Add User"><input type="Submit" name="action" value="Delete User"></p>
 			</form>
 	    </div>
@@ -57,8 +61,13 @@
 		var content = ("{{ content }}").replace("[","").replace("]","").split(",");
 		var ids = ("{{ ID }}").replace("[","").replace("]","").split(",");
 		var username = ("{{ username }}").replace("[","").replace("]","").split(",");
-		var password = ("{{ password }}").replace("[","").replace("]","").split(",");
-		var user_ID = ("{{ user_ID }}").replace("[","").replace("]","").split(",");
+		var email = ("{{ password }}").replace("[","").replace("]","").split(",");
+		var flat = ("{{ user_ID }}").replace("[","").replace("]","").split(",");
+		var floor = ("{{ floor }}").replace("[","").replace("]","").split(",");
+		var wing = ("{{ wing }}").replace("[","").replace("]","").split(",");
+		var link = ("{{ link }}").replace("[","").replace("]","").split(",");
+		var pswd = ("{{ pswd }}").replace("[","").replace("]","").split(",");
+		var id = ("{{ ID }}").replace("[","").replace("]","").split(",");
 		console.log(username)
 		console.log(password)
 		console.log(user_ID)
@@ -132,14 +141,14 @@
 					var textnode = document.createTextNode(dates);
 					div.append(textnode);              
 					cell.append(div);    
-					var organizer = password[z].replace("'","").replace("'","");
+					var organizer = flat[z].replace("'","").replace("'","");
 					var cell = row.insertCell(1);
 					cell.id = "Event_Organizer";
 					var div = document.createElement("div");
 					var textnode = document.createTextNode(organizer);
 					div.append(textnode);              
 					cell.append(div); 
-					var agenda = user_ID[z].replace("'","").replace("'","");
+					var agenda = floor[z].replace("'","").replace("'","");
 					var cell = row.insertCell(2);
 					cell.id = "Event_Agenda";
 					var div = document.createElement("div");
@@ -167,6 +176,7 @@
 					document.getElementById("New_date").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
 					document.getElementById("Agenda").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
 					document.getElementById("Organizer").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
+
 					document.getElementById("row").value = ids[(this.rowIndex)-1];
 				}
 			}
@@ -180,7 +190,11 @@
 					document.getElementById("New_user").value = (this.children[0].innerHTML.replace("<div>","").replace("</div>",""));
 					document.getElementById("password").value = (this.children[1].innerHTML.replace("<div>","").replace("</div>",""));
 					document.getElementById("user_ID").value = (this.children[2].innerHTML.replace("<div>","").replace("</div>",""));
-					document.getElementById("user_row").value = user_ID[(this.rowIndex)-1];
+					document.getElementById("wing").value = wing[(this.rowIndex)-1].replace("'","").replace("'","");
+					document.getElementById("email").value = email[(this.rowIndex)-1].replace("'","").replace("'","");
+					document.getElementById("link").value = link[(this.rowIndex)-1].replace("'","").replace("'","");
+					document.getElementById("user_pswd").value = pswd[(this.rowIndex)-1].replace("'","").replace("'","");
+					document.getElementById("user_row").value = id[(this.rowIndex)-1];
 					console.log(document.getElementById("user_row").value);
 				}
 			}

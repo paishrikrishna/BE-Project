@@ -17,8 +17,8 @@ def login_index_page(request):
 			date_count += 1	
 		objects = login_model.objects.all()
 		for i in objects:
-			if request.POST['email'] == i.username and request.POST['password'] == i.password:
-				return render(request,"homepage.html",{"user":i.username,"auth":i.auth,"date_count":date_count})
+			if (request.POST['email'] == i.username or request.POST['email'] == i.email) and request.POST['password'] == i.password:
+				return render(request,"homepage.html",{"user":i.username,"auth":i.auth,"date_count":date_count,"email":i.email,"floor":i.floor,"flat":i.flat,"wing":i.wing,"link":i.link})
 		return render(request,"login_page.html",{})
 	else:		
 		return render(request,"login_page.html",{})

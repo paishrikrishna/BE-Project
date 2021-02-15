@@ -7,4 +7,9 @@ class new_login_form(forms.ModelForm):
 		fields={
 			'username',
 			'password',
+			'link',
+			'email',
+			'wing',
+			'floor',
+			'flat',
 		}

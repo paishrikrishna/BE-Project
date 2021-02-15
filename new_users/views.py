@@ -9,13 +9,13 @@ def new_user_index_page(request):
 		f=0
 		obj = new_login_model.objects.all()
 		for i in obj:
-			if request.POST['username'] == i.username:
+			if request.POST['username'] == i.username or request.POST['email'] == i.email :
 				f = 1
 				break
 		if f!=1:
 			obj = login_model.objects.all()
 			for i in obj:
-				if request.POST['username'] == i.username:
+				if request.POST['username'] == i.username or request.POST['email'] == i.email:
 					f = 2
 					break
 		if f==0:
@@ -25,6 +25,11 @@ def new_user_index_page(request):
 				obj = new_login_model.objects.get(username='n/a')
 				obj.username = request.POST['username']
 				obj.password = request.POST['password']
+				obj.link = request.POST['link']
+				obj.email = request.POST['email']
+				obj.wing = request.POST['wing']
+				obj.floor = request.POST['floor']
+				obj.flat = request.POST['flat']
 				obj.save()
 		return render(request,"new_user.html",{"flag":str(f)})
 	else:

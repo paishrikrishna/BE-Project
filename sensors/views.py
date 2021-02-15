@@ -304,13 +304,13 @@ def export_data(request):
 		obj_tank = list(lights.objects.all())
 		obj_tank_date = list(lights_date.objects.all())
 		for i in range(1,len(obj_tank)+1):
-			date.append(obj_tank_date[-1].date)
-			scheduled_lights.append(obj_tank[-1].scheduled_lights)
-			floor_no.append(obj_tank[-1].floor_no)
-			floor_lights.append(obj_tank[-1].floor_lights)
-			scheduled_time_from.append(obj_tank[-1].scheduled_time_from)
-			scheduled_time_to.append(obj_tank[-1].scheduled_time_to)
-			all_lights.append(obj_tank[-1].all_lights)
+			date.append(obj_tank_date[-i].date)
+			scheduled_lights.append(obj_tank[-i].scheduled_lights)
+			floor_no.append(obj_tank[-i].floor_no)
+			floor_lights.append(obj_tank[-i].floor_lights)
+			scheduled_time_from.append(obj_tank[-i].scheduled_time_from)
+			scheduled_time_to.append(obj_tank[-i].scheduled_time_to)
+			all_lights.append(obj_tank[-i].all_lights)
 
 		response_lights = HttpResponse(content_type='application/ms-excel')
 		response_lights['Content-Disposition'] = 'attachment; filename="Lights Status.xls"'
