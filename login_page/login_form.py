@@ -8,4 +8,5 @@ class login_form(forms.ModelForm):
 			'username',
 			'password',
 			'auth',
+			'link',
 		}
