@@ -1377,7 +1377,7 @@
 	<div id="main">
 		{% block content %}
 			<DIV style="display: block;">
-				<div style="display: inline-block;font-size: 40px;">
+				<div style="display: inline-block;font-size: 30px;width: 70%;">
 					<div style="border-style: solid;padding: 5px;margin-bottom: 4px;">
 						Username : {{ user }}
 					</div>
@@ -1388,18 +1388,19 @@
 						Wing : {{ wing }}
 					</div>
 					<div style="border-style: solid;padding: 5px;margin-bottom: 4px;">
-						Floor Number : {{ floor }} 
+						Floor Number / Flat Number : {{ floor }} 
 					</div>
 					<div style="border-style: solid;padding: 5px;margin-bottom: 4px;">
-						Flat Number : {{ flat }}
+						Mobile Number : {{ flat }}
 					</div>
 					<div style="border-style: solid;padding: 5px;margin-bottom: 4px;">
-						Document Link : {{ link }}
+						Documents :
+						 <a href="{{ link }}" style="color: black;display:inline-block;"id="docs">Click me to access documents</a>
 					</div>
 
 				</div>
 				<div style="border-style: solid;border-width: 1px;width: 400px;height: 400px;padding: 10px;float: right;display: inline-block;text-align: center;">
-					<img src="https://qrcode.tec-it.com/API/QRCode?data=BEGIN%3AVCARD%0D%0AVERSION%3A2.1%0D%0AN%3AJohn+Doe%0D%0ATEL%3BHOME%3BVOICE%3A555-555-5555%0D%0ATEL%3BWORK%3BVOICE%3A666-666-6666%0D%0AEMAIL%3Aemail%40example.com%0D%0AORG%3ATEC-IT%0D%0AURL%3Ahttps%3A%2F%2Fwww.example.com%0D%0AEND%3AVCARD" height="400" width="400" style="">
+					<img src="../../{{ user }}/qr_code/" height="400" width="400" style="">
 					<div style="margin-top: 4%;font-size: 20px;">
 						<b>Scan Me To Mark Your Entry</b>
 					</div>
@@ -1411,7 +1412,6 @@
 	{% autoescape off %}
 	<script>
 		admin_panel();
-
 		function admin_panel(){
 			var x = document.getElementById("admin_panel");
 			var y = document.getElementById("admin_guard_panel");

@@ -32,8 +32,8 @@
 	<table id="req_user_log" style="margin-top: 20px; padding: 0px 60px 20px 60px;width: 100%;overflow-y: scroll;overflow-x: hidden;">
 		<tr style="font-size: 40px;text-align: center;">
 			<td style="border-radius: 20px;background-color: red;color: white">Username</td>
-			<td style="border-radius: 20px;background-color: red;color: white">Flat No</td>
-			<td style="border-radius: 20px;background-color: red;color: white">Floor</td>
+			<td style="border-radius: 20px;background-color: red;color: white">Mobile Number</td>
+			<td style="border-radius: 20px;background-color: red;color: white">Floor Number / Flat Number</td>
 		</tr>
 	</table>
 	<div class="popup" id="popup">
@@ -43,8 +43,8 @@
 	        User Details
 	        <form id="pop_content" method="POST" action="">{% csrf_token %}
 					<p>Username <input id = "New_user" type="text" name="username" value="" readonly="1"></p>
-					<p>Flat No <input type="text" id="password" name="flat" readonly="1"></p>
-					<p>Floor<input type="text" id="user_ID" name="floor" value="" readonly="1"></p>
+					<p>Mobile Number <input type="text" id="password" name="flat" readonly="1"></p>
+					<p>Floor Number / Flat Number <input type="text" id="user_ID" name="floor" value="" readonly="1"></p>
 					<p>Wing <input id = "wing" type="text" name="wing" value="" readonly="1"></p>
 					<p>Email ID <input type="text" id="email" name="email" readonly="1"></p>
 					<p>Link<input type="text" id="link" name="link" value="" readonly="1"></p>

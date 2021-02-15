@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from homepage.views import home_index_page
+from homepage.views import home_index_page,qr_code
 from calander.views import cal_index_page
 from camera.views import cam_index_page
 from requested_events.views import req_events_index_page
@@ -49,5 +49,6 @@ urlpatterns = [
     path('date_and_time/',date_and_time),
     path('lights_statu_s/',lights_statu_s),
     path('turn_hrd/',turn_hrd),
-    path('export_data/',export_data)
+    path('export_data/',export_data),
+    path('<str:user>/qr_code/',qr_code)
 ]
