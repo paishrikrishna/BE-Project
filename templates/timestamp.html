@@ -1,0 +1,45 @@
+{% extends "homepage.html" %}
+{% block content %}
+
+	<div style="margin-top: 20px;margin: auto;padding: 20px;text-align: center;font-size: 40px;">
+		Entry Exit Of Non Members to be marked
+	</div>
+
+	<table border="1" style="padding:2px;margin: auto;">
+		<tr style="border-radius: 20px;background-color: red;color: white;font-size: 60px;text-align: center;">
+			<td>Name</td>
+			<td>Contact Number</td>
+			<td>Purpose Of visit</td>
+			<td>Wing to visit</td>
+			<td>Floor/Flat</td>
+			
+		</tr>
+		
+			<form method="POST" action=""> {% csrf_token %}
+				<tr style="text-align: center;font-size: 40px;">
+					<td>
+						<input type="text" name="name" style="margin: 25px;" required>
+					</td>
+					<td>
+						<input type="text" name="contact" style="margin: 25px;" required>
+					</td>
+					<td>
+						<input type="text" name="reason" style="margin: 25px;" required>
+					</td>
+					<td>
+						<input type="text" name="wing" style="margin: 25px;" required>
+					</td>
+					<td>
+						<input type="text" name="floor" style="margin: 25px;" required>
+					</td>
+				</tr>
+				</table>
+				<input type="submit" name="" style="margin-left:45%;float: center;margin-top: 3%;"> 
+			</form>
+			<a href="http://192.168.43.55:8000/export_timestamps/" style="color: black;text-align: center;">Export Data</a>
+
+
+	{% autoescape off %}
+
+	{% endautoescape %}
+{% endblock %}

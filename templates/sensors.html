@@ -80,14 +80,14 @@
 				
 				document.getElementById("pump").disabled=true;
 				//document.getElementById("light").disabled=true;
-				alert("System on Automation all switches are locked to avoid manual control");
+				//alert("System on Automation all switches are locked to avoid manual control");
 			}
 			else if(document.getElementById("checkbox").checked == false){
 				post_switch_status("automation_switch","false");
 				
 				document.getElementById("pump").disabled=false;
 				//document.getElementById("light").disabled=false;
-				alert("System on Manual control All Switches Unlocked");
+				//alert("System on Manual control All Switches Unlocked");
 				
 			}
 		}
@@ -178,7 +178,7 @@
 					document.getElementById("checkbox").checked=true;
 					post_switch_status("automation_switch","true");
 					document.getElementById("pump").disabled=true;
-					alert("Water System is now on Automation control");
+					//alert("Water System is now on Automation control");
 					
 					//document.getElementById("light").disabled=true;
 
@@ -188,7 +188,7 @@
 					document.getElementById("checkbox").checked=false;
 					post_switch_status("automation_switch","false");
 					document.getElementById("pump").disabled=false;
-					alert("Water System is now on Manual control ");
+					//alert("Water System is now on Manual control ");
 					
 					//document.getElementById("light").disabled=false;
 					

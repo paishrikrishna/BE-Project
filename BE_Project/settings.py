@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'notice_board',
     'messaging_module',
     'sensors',
+    'entry_exit_timestamp'
 ]
 
 MIDDLEWARE = [
