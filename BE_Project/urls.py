@@ -25,6 +25,7 @@ from notice_board.views import notice_index_page
 from messaging_module.views import message_index_page
 from sensors.views import sensors_index_page,read_water_tank_status,switch_status,water_level,device_initial_setup,read_light_switch_status,light_switch_status,lights_operation,all_lights_operation,read_floor_light_status,floor_and_light_status,date_and_time,lights_statu_s,turn_hrd,export_data
 from entry_exit_timestamp.views import timestamp_index_page,export_timestamps
+from temp_rmv_access.views import temp_rmv_access
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',login_index_page),
@@ -52,5 +53,6 @@ urlpatterns = [
     path('turn_hrd/',turn_hrd),
     path('export_data/',export_data),
     path('<str:user>/qr_code/',qr_code),
-    path('export_timestamps/',export_timestamps)
+    path('export_timestamps/',export_timestamps),
+    path('<str:user>/<str:auth>/temp_rmv_access',temp_rmv_access)
 ]

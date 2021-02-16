@@ -27,5 +27,5 @@ def qr_code(request,user):
 	qr.add_data(input_data)
 	qr.make(fit=True)
 	img = qr.make_image(fill='black', back_color='white')
-	img.save('qrcode_'+str(user)+'_.png')
-	return HttpResponse(open('qrcode_'+str(user)+'_.png', "rb").read(), content_type="image/png")
+	img.save('qr_codes/qrcode_'+str(user)+'_.png')
+	return HttpResponse(open('qr_codes/qrcode_'+str(user)+'_.png', "rb").read(), content_type="image/png")
