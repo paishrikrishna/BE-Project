@@ -6,8 +6,8 @@
 		  <input type="checkbox" id="checkbox">
 		  <span class="slider round"></span>
 		</label>
-		<a href="http://192.168.43.55:8000/export_data?name=water" style="float: right;font-size: 20px;color: black;"  id="export_water_data">Export Water Tank Data</a>
-		<a href="http://192.168.43.55:8000/export_data?name=lights" style="float: right;font-size: 20px;color: black;"  id="export_lights_data">Export Lights Data</a>
+		<a href="http://beprojectvesit.pythonanywhere.com/export_data?name=water" style="float: right;font-size: 20px;color: black;"  id="export_water_data">Export Water Tank Data</a>
+		<a href="http://beprojectvesit.pythonanywhere.com/export_data?name=lights" style="float: right;font-size: 20px;color: black;"  id="export_lights_data">Export Lights Data</a>
 	</div>
 	<div style="display: flex; margin-top: 4%;margin-left: 10%;">
 		<div class="c100 p25 big" id="water_level">
@@ -132,12 +132,12 @@
 		}
 		document.getElementById("export_lights_data").onclick = function(){
 			let xhr = new XMLHttpRequest();
-			xhr.open('get', 'http://192.168.43.55:8000/export_data?name=lights');
+			xhr.open('get', 'http://beprojectvesit.pythonanywhere.com/export_data?name=lights');
 			xhr.send();
 		}
 		document.getElementById("export_water_data").onclick = function(){
 			let xhr = new XMLHttpRequest();
-			xhr.open('get', 'http://192.168.43.55:8000/export_data?name=water');
+			xhr.open('get', 'http://beprojectvesit.pythonanywhere.com/export_data?name=water');
 			xhr.send();
 		}
 		
@@ -145,7 +145,7 @@
 
 		function read_water_tank_level(){
 			let xhr = new XMLHttpRequest();
-			xhr.open('get', 'http://192.168.43.55:8000/read_water_tank_status/');
+			xhr.open('get', 'http://beprojectvesit.pythonanywhere.com/read_water_tank_status/');
 			xhr.send();
 
 			xhr.onload = function() {
@@ -159,7 +159,7 @@
 
 		function read_water_tank_status(){
 			let xhr = new XMLHttpRequest();
-			xhr.open('get', 'http://192.168.43.55:8000/read_water_tank_status/');
+			xhr.open('get', 'http://beprojectvesit.pythonanywhere.com/read_water_tank_status/');
 			xhr.send();
 
 			xhr.onload = function() {
@@ -210,13 +210,13 @@
 
 		function post_switch_status(switch_name,status){
 			let xhr = new XMLHttpRequest();
-			xhr.open('get', 'http://192.168.43.55:8000/switch_status?switch_name='+switch_name+'&status='+status);
+			xhr.open('get', 'http://beprojectvesit.pythonanywhere.com/switch_status?switch_name='+switch_name+'&status='+status);
 			xhr.send();
 		}
 
 		function read_light_status(){
 			let xhr = new XMLHttpRequest();
-			xhr.open('get', 'http://192.168.43.55:8000/read_light_switch_status/');
+			xhr.open('get', 'http://beprojectvesit.pythonanywhere.com/read_light_switch_status/');
 			xhr.send();
 
 			xhr.onload = function() {
@@ -242,19 +242,19 @@
 
 		function post_light_switch_status(switch_name,status,from,to){
 			let xhr = new XMLHttpRequest();
-			xhr.open('get', 'http://192.168.43.55:8000/light_switch_status?switch_name='+switch_name+'&status='+status+'&from='+from+'&to='+to);
+			xhr.open('get', 'http://beprojectvesit.pythonanywhere.com/light_switch_status?switch_name='+switch_name+'&status='+status+'&from='+from+'&to='+to);
 			xhr.send();
 		}
 
 		function all_lights_operation(){
 			let xhr = new XMLHttpRequest();
-			xhr.open('get', 'http://192.168.43.55:8000/all_lights_operation/');
+			xhr.open('get', 'http://beprojectvesit.pythonanywhere.com/all_lights_operation/');
 			xhr.send();
 		}
 
 		function read_floor_light_status(floor_number){
 			let xhr = new XMLHttpRequest();
-			xhr.open('get', 'http://192.168.43.55:8000/read_floor_light_status?floor_number='+floor_number);
+			xhr.open('get', 'http://beprojectvesit.pythonanywhere.com/read_floor_light_status?floor_number='+floor_number);
 			xhr.send();
 			xhr.onload = function() {
 				//console.log(JSON.parse(xhr.response)['status']);
@@ -270,7 +270,7 @@
 
 		function floor_and_light_status(floor_number,floor_status){
 			let xhr = new XMLHttpRequest();
-			xhr.open('get', 'http://192.168.43.55:8000/floor_and_light_status?floor_no='+floor_number+'&floor_lights='+floor_status);
+			xhr.open('get', 'http://beprojectvesit.pythonanywhere.com/floor_and_light_status?floor_no='+floor_number+'&floor_lights='+floor_status);
 			xhr.send();
 		}
 
