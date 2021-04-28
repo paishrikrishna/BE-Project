@@ -24,8 +24,26 @@ time = now.strftime("%H:%M:%S")
 
 date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
 
+def qr_code_scanner(request):
+	user = list(login_model.objects.filter(username=request.GET['name']))
+	if len(user) > 0:
+		now = datetime.datetime.utcnow()+datetime.timedelta(hours=5)+datetime.timedelta(minutes=30)
+		date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+		try:
+			entry_exit_form().save()
+		except:
+			objs = list(entry_exit_model.objects.all())
+			objs[-1].username = user[-1].username
+			objs[-1].auth = "Resident"
+			objs[-1].wing = user[-1].wing
+			objs[-1].floor = user[-1].floor
+			objs[-1].number = user[-1].flat
+			objs[-1].date = date_time
+			objs[-1].save()
+				
 
-
+	html = "<html><body>It is now %s.</body></html>"
+	return HttpResponse(html)
 def timestamp_index_page(request,user,auth):
 
 	if request.method == "POST":

@@ -1416,6 +1416,7 @@
 	{% autoescape off %}
 	<script>
 		admin_panel();
+		
 		function admin_panel(){
 			var x = document.getElementById("admin_panel");
 			var y = document.getElementById("admin_guard_panel");
@@ -1440,6 +1441,7 @@
 		if(parseInt("{{ date_count }}")>=1){
 			document.getElementById("req").style="background-color:red;color:white;border-radius:20px";
 		}
+
 
 
 	</script>
