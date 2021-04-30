@@ -47,9 +47,16 @@
 			  <span class="slider"></span>
 			</label>
 		</div>
-	<div id="floor_settings" style="margin-top:4%;">
+	<div id="night_surv" style="margin-top: 2%;">
+			<font size="8">Survelliance</font> 
+			<label class="switch" style="margin-left: 1%;">
+			  <input type="checkbox" id="night">
+			  <span class="slider"></span>
+			</label>
+		</div>
+	<div id="floor_settings" style="margin-top:3%;">
 		<font size="8">Select Floor Number</font>
-		<input type="number" name="floor_number" id="floor_number" style="margin-left:4%;height: 40px;" min = 0 max = 5 onchange="read_floor_light_status(document.getElementById('floor_number').value.toString())"> 
+		<input type="number" name="floor_number" id="floor_number" style="margin-left:1%;height: 40px;width: 50px;text-align: center;" min = 0 max = 5 onchange="read_floor_light_status(document.getElementById('floor_number').value.toString())"> 
 		<div id="lights" style="margin-top: 2%;">
 			<font size="5">Floor Lights</font> 
 			<label class="switch" style="margin-left: 1%;">
@@ -66,6 +73,15 @@
 	</div>
 	
 	{% autoescape off %}
+	<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-database.js"></script> 
+    <script>
+
+	  	
+
+	
+	</script>
 	<script>
 		document.getElementById("floor_number").value=0;
 		authorization_check();
@@ -73,7 +89,51 @@
 		read_light_status();
 		read_floor_light_status(document.getElementById('floor_number').value.toString());
 		read_water_tank_level();
+
+		// firebase
+		var firebaseConfig = {
+		    apiKey: "AIzaSyCfE7xuezX0A5qFy3lgUr2tV6xwapSL7bs",
+		    authDomain: "home-f3bd8.firebaseapp.com",
+		    databaseURL: "https://home-f3bd8-default-rtdb.firebaseio.com",
+		    projectId: "home-f3bd8",
+		    storageBucket: "home-f3bd8.appspot.com",
+		    messagingSenderId: "79452231344",
+		    appId: "1:79452231344:web:305ad962571e0f44eecd75"
+		  };
+
+		  // Initialize Firebase
+
+		  firebase.initializeApp(firebaseConfig);
+
+		  firebase.database().ref('Floor/switch').on('value', function(snapshot){
+		  		var x = document.getElementById("night");
+		  		if(snapshot.val()=="true"){
+		  			x.checked = true;	
+		  		}
+		  		else{
+		  			x.checked = false;
+		  		}
+
+		  });
+
+
+		document.getElementById("night").onclick = function(){
+			if(document.getElementById("night").checked == true){
+				console.log("True");
+				firebase.database().ref('Floor/').update({
+		  			switch: "true",
+		  		})
+			}
+			else if(document.getElementById("night").checked == false){
+				console.log("False");
+				firebase.database().ref('Floor/').update({
+		  			switch: "false",
+		  		})
+			}
+		}
+                 
 		// switches onclick events
+
 
 		document.getElementById("checkbox").onclick = function(){
 			if(document.getElementById("checkbox").checked == true){
