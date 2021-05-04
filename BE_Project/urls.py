@@ -13,6 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
+
 from django.contrib import admin
 from django.urls import path
 from homepage.views import home_index_page,qr_code
@@ -56,4 +59,4 @@ urlpatterns = [
     path('export_timestamps/',export_timestamps),
     path('<str:user>/<str:auth>/temp_rmv_access',temp_rmv_access),
     path('qr_code_scanner/',qr_code_scanner)
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

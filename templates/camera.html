@@ -1,17 +1,68 @@
 {% extends "homepage.html" %}
 {% block content %}
-	<table id="camera_feed" style="margin-top: 20px;">
-		<tr colspan="2">
-			<td>
-				<div style="text-align: center;font-size: 20px;">
-					Camera Feed
+	<span style="float: right;">		
+		<font size="8">Siren</font> 
+		<label class="switch" style="margin-left: 1%;">
+		  <input type="checkbox" id="night">
+		  <span class="slider"></span>
+		</label>
+	</span>
+	<table id="camera_feed" style="margin-top: 20px;text-align: center;" border="0">
+		<tr colspan="2" style="border-style: none;">
+			<td style="border-style: none;">
+				<div style="font-size: 70px;">
+					Camera Feed 
 				</div>
 			</td>
 		</tr>
 	</table>
 	{% autoescape off %}
+	<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-database.js"></script> 
 	<script>
 		
+		// firebase
+		var firebaseConfig = {
+		    apiKey: "AIzaSyCfE7xuezX0A5qFy3lgUr2tV6xwapSL7bs",
+		    authDomain: "home-f3bd8.firebaseapp.com",
+		    databaseURL: "https://home-f3bd8-default-rtdb.firebaseio.com",
+		    projectId: "home-f3bd8",
+		    storageBucket: "home-f3bd8.appspot.com",
+		    messagingSenderId: "79452231344",
+		    appId: "1:79452231344:web:305ad962571e0f44eecd75"
+		  };
+
+		  // Initialize Firebase
+
+		  firebase.initializeApp(firebaseConfig);
+
+		  firebase.database().ref('Floor/First').on('value', function(snapshot){
+		  		var x = document.getElementById("night");
+		  		if(snapshot.val()=="HIGH"){
+		  			x.checked = true;	
+		  		}
+		  		else{
+		  			x.checked = false;
+		  		}
+
+		  });
+
+
+		document.getElementById("night").onclick = function(){
+			if(document.getElementById("night").checked == true){
+				console.log("True");
+				firebase.database().ref('Floor/').update({
+		  			First: "HIGH",
+		  		})
+			}
+			else if(document.getElementById("night").checked == false){
+				console.log("False");
+				firebase.database().ref('Floor/').update({
+		  			First: "LOW",
+		  		})
+			}
+		}
 		
 		cam_feed(5)
 
@@ -34,7 +85,7 @@
 				cell1.append(video);      
 				var div = document.createElement("div");
 				div.id = "feed_name";
-				var textnode = document.createTextNode("Feed Title");
+				var textnode = document.createTextNode("Floor "+String(i));
 				div.append(textnode);                    
 				cell1.append(div);
 			}

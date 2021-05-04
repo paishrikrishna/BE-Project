@@ -4,6 +4,9 @@
 	<title>BE</title>
 
 	<style type="text/css">
+		#Feeds{
+			border-style: solid;
+		}
 		#sidebar{
 		  height: 100%;
 		  width: 250px;
@@ -1410,12 +1413,17 @@
 					</div>
 				</div>
 			</DIV>
-
+			
 		{% endblock %}
 	</div>
+	
+
 	{% autoescape off %}
+	
 	<script>
 		admin_panel();
+				
+		
 		
 		function admin_panel(){
 			var x = document.getElementById("admin_panel");
